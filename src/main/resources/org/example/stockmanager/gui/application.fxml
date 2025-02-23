@@ -44,7 +44,7 @@
          <content>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="634.0" prefWidth="1040.0" styleClass="anchor-pane">
                <children>
-                  <VBox layoutX="-7.0" prefHeight="618.0" prefWidth="213.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="936.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="-7.0" prefHeight="618.0" prefWidth="240.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="909.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="208.0" styleClass="label-navegation" text="Frente de Caixa">
                            <font>
@@ -77,25 +77,25 @@
                         </Button>
                      </children>
                   </VBox>
-                  <TableView layoutX="359.0" layoutY="265.0" prefHeight="390.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="0.0" />
-                  <TextField layoutX="683.0" layoutY="57.0" prefHeight="35.0" prefWidth="221.0" />
-                  <Label layoutX="683.0" layoutY="32.0" styleClass="label-cashier-front-information" text="Digite o código do produto:">
+                  <TableView layoutX="249.0" layoutY="245.0" prefHeight="380.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="0.0" />
+                  <TextField layoutX="683.0" layoutY="57.0" prefHeight="35.0" prefWidth="221.0" AnchorPane.rightAnchor="245.0" />
+                  <Label layoutX="683.0" layoutY="32.0" styleClass="label-cashier-front-information" text="Digite o código do produto:" AnchorPane.rightAnchor="255.0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="956.0" layoutY="32.0" styleClass="label-cashier-front-information" text="Digite a quantidade:">
+                  <Label layoutX="956.0" layoutY="32.0" styleClass="label-cashier-front-information" text="Digite a quantidade:" AnchorPane.rightAnchor="39.0">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField layoutX="956.0" layoutY="57.0" prefHeight="35.0" prefWidth="156.0" />
-                  <Button layoutX="951.0" layoutY="180.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="159.0" styleClass="button-cashier-front-confirm" text="Confirmar Compra">
+                  <TextField layoutX="956.0" layoutY="57.0" prefHeight="35.0" prefWidth="156.0" AnchorPane.rightAnchor="37.0" />
+                  <Button layoutX="954.0" layoutY="170.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="159.0" styleClass="button-cashier-front-confirm" text="Confirmar Compra" AnchorPane.rightAnchor="35.0">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Button>
-                  <Button layoutX="1002.0" layoutY="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="112.0" styleClass="button-cashier-front-remove" text="Remover">
+                  <Button layoutX="1002.0" layoutY="100.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="112.0" styleClass="button-cashier-front-remove" text="Remover" AnchorPane.rightAnchor="35.0">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -108,13 +108,8 @@
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" styleClass="anchor-pane">
                <children>
-                  <TableView layoutX="213.0" layoutY="281.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="294.0" prefWidth="936.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="213.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="320.0" />
-                  <Button layoutX="1002.0" layoutY="279.0" mnemonicParsing="false" styleClass="button-stock" text="Editar Estoque">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <VBox layoutX="6.0" layoutY="7.0" prefHeight="614.0" prefWidth="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <TableView layoutX="249.0" layoutY="281.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="380.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="234.0" />
+                  <VBox layoutX="6.0" layoutY="7.0" prefHeight="614.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="909.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label alignment="CENTER" prefHeight="80.0" prefWidth="213.0" styleClass="label-navegation" text="Controle de Estoque">
                            <font>
