@@ -9,8 +9,8 @@ import java.io.IOException;
 public class Application extends javafx.application.Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("application.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 930, 655);
+        FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("gui/application.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1149, 663);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

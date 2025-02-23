@@ -46,7 +46,7 @@
                <children>
                   <VBox layoutX="-7.0" prefHeight="618.0" prefWidth="213.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="936.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="208.0" text="Frente de Caixa">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="208.0" styleClass="label-navegation" text="Frente de Caixa">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -79,12 +79,12 @@
                   </VBox>
                   <TableView layoutX="359.0" layoutY="265.0" prefHeight="390.0" prefWidth="790.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="359.0" AnchorPane.rightAnchor="0.0" />
                   <TextField layoutX="683.0" layoutY="57.0" prefHeight="35.0" prefWidth="221.0" />
-                  <Label layoutX="683.0" layoutY="32.0" text="Digite o código do produto:">
+                  <Label layoutX="683.0" layoutY="32.0" styleClass="label-cashier-front-information" text="Digite o código do produto:">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <Label layoutX="956.0" layoutY="32.0" text="Digite a quantidade:">
+                  <Label layoutX="956.0" layoutY="32.0" styleClass="label-cashier-front-information" text="Digite a quantidade:">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -116,7 +116,7 @@
                   </Button>
                   <VBox layoutX="6.0" layoutY="7.0" prefHeight="614.0" prefWidth="213.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="80.0" prefWidth="213.0" text="Controle de Estoque">
+                        <Label alignment="CENTER" prefHeight="80.0" prefWidth="213.0" styleClass="label-navegation" text="Controle de Estoque">
                            <font>
                               <Font size="20.0" />
                            </font>

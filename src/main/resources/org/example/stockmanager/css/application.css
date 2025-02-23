@@ -39,6 +39,14 @@
     -fx-text-fill: #FFF;
 }
 
+.label-navegation {
+-fx-font-size: 20px;
+}
+
+.label-cashier-front-information {
+-fx-font-size: 16px;
+}
+
 .button-stock {
 -fx-background-color: #007BFF;
 -fx-text-fill: #FFF;
@@ -50,9 +58,10 @@
 -fx-font-weight: bold;
 -fx-padding: 15px 5px;
 -fx-cursor: hand;
+-fx-font-size: 18px;
 }
 
-.button-cashier-front:hover {
+.button-side-navegation:hover {
 -fx-background-color: #333333;
 }
 
@@ -67,6 +76,7 @@
 -fx-text-fill: white;
 -fx-font-weight: bold;
 -fx-cursor: hand;
+-fx-font-size: 14px;
 }
 
 .button-cashier-front-confirm {
@@ -74,4 +84,5 @@
 -fx-text-fill: white;
 -fx-font-weight: bold;
 -fx-cursor: hand;
+-fx-font-size: 14px;
 }
