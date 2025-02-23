@@ -16,3 +16,14 @@ email VARCHAR(120),
 phone VARCHAR(50),
 cpf VARCHAR(20) UNIQUE
 );
+
+CREATE TABLE tb_order(
+id INT AUTO_INCREMENT PRIMARY KEY,
+moment TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER TABLE tb_order ADD COLUMN client_id INT NOT NULL, 
+ADD CONSTRAINT fk_order_client FOREIGN KEY(client_id) REFERENCES tb_client(id);
+
+ALTER TABLE tb_order ADD COLUMN product_id INT NOT NULL,
+ADD CONSTRAINT fk_order_product FOREIGN KEY(product_id) REFERENCES tb_product(id);
