@@ -1,0 +1,37 @@
+.anchor-pane {
+    -fx-background-color: #1E1E1E;
+}
+
+.text-stock-create {
+    -fx-font-family: "Montserrat", sans-serif;
+    -fx-font-weight: bold;
+    -fx-font-size: 24px;
+}
+
+.label {
+-fx-font-size: 18px;
+-fx-font-weight: bold;
+}
+
+.text-field {
+-fx-background-color: transparent;
+-fx-border-width: 0 0 2px 0;
+-fx-border-color: #FFF;
+}
+
+.text-area, .button-create {
+-fx-border-width: 2px;
+-fx-border-radius: 4px;
+-fx-border-color: #FFF;
+}
+
+.text-area .content {
+    -fx-background-color: #1E1E1E;
+}
+
+.button-create {
+-fx-background-color: transparent;
+-fx-text-fill: #FFF;
+-fx-font-size: 18px;
+-fx-font-weight: bold;
+}
