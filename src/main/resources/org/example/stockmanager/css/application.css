@@ -38,3 +38,40 @@
     -fx-font-weight: bold;
     -fx-text-fill: #FFF;
 }
+
+.button-stock {
+-fx-background-color: #007BFF;
+-fx-text-fill: #FFF;
+}
+
+.button-side-navegation {
+-fx-background-color: transparent;
+-fx-text-fill: #FFF;
+-fx-font-weight: bold;
+-fx-padding: 15px 5px;
+-fx-cursor: hand;
+}
+
+.button-cashier-front:hover {
+-fx-background-color: #333333;
+}
+
+.text-field {
+-fx-background-color: transparent;
+-fx-border-width: 0 0 2px 0;
+-fx-border-color: #FFF;
+}
+
+.button-cashier-front-remove {
+ -fx-background-color: #B22222;
+-fx-text-fill: white;
+-fx-font-weight: bold;
+-fx-cursor: hand;
+}
+
+.button-cashier-front-confirm {
+ -fx-background-color: #008000;
+-fx-text-fill: white;
+-fx-font-weight: bold;
+-fx-cursor: hand;
+}
