@@ -34,15 +34,15 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <TextField layoutX="286.0" layoutY="100.0" prefHeight="27.0" prefWidth="172.0" />
-      <TextField layoutX="58.0" layoutY="292.0" />
-      <Label layoutX="61.0" layoutY="265.0" text="Quantidade" textFill="WHITE">
+      <TextField layoutX="283.0" layoutY="100.0" prefHeight="27.0" prefWidth="172.0" />
+      <TextField layoutX="58.0" layoutY="298.0" />
+      <Label layoutX="60.0" layoutY="271.0" text="Quantidade" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <TextArea layoutX="286.0" layoutY="154.0" prefHeight="167.0" prefWidth="235.0" styleClass="text-area" />
-      <Label layoutX="286.0" layoutY="127.0" text="Descrição" textFill="WHITE">
+      <TextArea layoutX="286.0" layoutY="168.0" prefHeight="170.0" prefWidth="235.0" styleClass="text-area" />
+      <Label layoutX="286.0" layoutY="138.0" text="Descrição" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>

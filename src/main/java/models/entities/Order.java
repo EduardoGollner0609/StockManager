@@ -1,12 +1,15 @@
-package entities;
+package models.entities;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 public class Order {
 
     private Long id;
     private Instant moment;
-    private Product product;
+    private Set<Product> products = new HashSet<>();
     private Client client;
 
     public Order() {
@@ -14,7 +17,6 @@ public class Order {
 
     public Order(Client client, Product product, Instant moment, Long id) {
         this.client = client;
-        this.product = product;
         this.moment = moment;
         this.id = id;
     }
@@ -35,12 +37,12 @@ public class Order {
         this.moment = moment;
     }
 
-    public Product getProduct() {
-        return product;
+    public Set<Product> getProducts() {
+        return products;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void addProduct(Product product) {
+        this.products.add(product);
     }
 
     public Client getClient() {
@@ -49,5 +51,18 @@ public class Order {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return Objects.equals(id, order.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
