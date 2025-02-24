@@ -35,14 +35,7 @@ public class ProductService implements ProductDao {
             st.setLong(1, id);
             rs = st.executeQuery();
             if (rs.next()) {
-                Product product = new Product(rs.getLong("id"), rs.getString("name"),
-                        rs.getString("description"),
-                        rs.getString("category"),
-                        rs.getString("mark"),
-                        rs.getInt("quantity"),
-                        rs.getDouble("price"),
-                        rs.getString("measuremenet_unit"));
-                return product;
+                return instantiateProduct(rs);
             }
             return null;
         } catch (SQLException e) {
@@ -65,4 +58,14 @@ public class ProductService implements ProductDao {
 
     }
 
+    private Product instantiateProduct(ResultSet rs) throws SQLException {
+        return new Product(rs.getLong("id"),
+                rs.getString("name"),
+                rs.getString("description"),
+                rs.getString("category"),
+                rs.getString("mark"),
+                rs.getInt("quantity"),
+                rs.getDouble("price"),
+                rs.getString("measuremenet_unit"));
+    }
 }
