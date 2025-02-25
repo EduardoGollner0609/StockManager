@@ -6,4 +6,6 @@ module org.example.stockmanager {
 
     opens org.example.stockmanager to javafx.fxml;
     exports org.example.stockmanager;
+    exports controllers;
+    opens controllers to javafx.fxml;
 }
