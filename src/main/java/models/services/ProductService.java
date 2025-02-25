@@ -101,7 +101,19 @@ public class ProductService implements ProductDao {
 
     @Override
     public void deleteById(Long id) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("DELETE FROM tb_product" +
+                    "WHERE id = ?");
 
+            st.setLong(1, id);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
     }
 
     @Override
