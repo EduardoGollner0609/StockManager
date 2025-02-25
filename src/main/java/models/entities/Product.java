@@ -7,33 +7,26 @@ public class Product {
     private Long id;
     private String name;
     private String description;
-    private String category;
-    private String mark;
     private Integer quantity;
     private Double price;
-    private String measuremenetUnit;
 
     public Product() {
     }
 
-    public Product(Long id, String name, String description, String category, String mark,
-                   Integer quantity, Double price, String measuremenetUnit) {
+    public Product(Long id, String name, String description, Integer quantity, Double price) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.category = category;
-        this.mark = mark;
         this.quantity = quantity;
         this.price = price;
-        this.measuremenetUnit = measuremenetUnit;
     }
 
-    public String getMeasuremenetUnit() {
-        return measuremenetUnit;
+    public Long getId() {
+        return id;
     }
 
-    public void setMeasuremenetUnit(String measuremenetUnit) {
-        this.measuremenetUnit = measuremenetUnit;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Double getPrice() {
@@ -52,22 +45,6 @@ public class Product {
         this.quantity = quantity;
     }
 
-    public String getMark() {
-        return mark;
-    }
-
-    public void setMark(String mark) {
-        this.mark = mark;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -84,13 +61,6 @@ public class Product {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public boolean equals(Object o) {

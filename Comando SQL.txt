@@ -2,11 +2,8 @@ CREATE TABLE tb_product(
 id INT PRIMARY KEY NOT NULL,
 name VARCHAR(100),
 description TEXT,
-category VARCHAR(60),
-mark VARCHAR(80),
 quantity INT,
-price DOUBLE,
-measurement_unit VARCHAR(12)
+price DOUBLE
 );
 
 CREATE TABLE tb_client(
