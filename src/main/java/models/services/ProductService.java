@@ -25,7 +25,36 @@ public class ProductService implements ProductDao {
 
     @Override
     public void insert(Product product) {
-      
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement(
+                    "INSERT INTO tb_product" +
+                            "(name, description, quantity, price) " +
+                            "VALUES " +
+                            "(?, ?, ?, ?)");
+            st.setString(1, product.getName());
+            st.setString(2, product.getDescription());
+            st.setInt(3, product.getQuantity());
+            st.setDouble(4, product.getPrice());
+
+            int rowsAffected = st.executeUpdate();
+
+            if (rowsAffected > 0) {
+                ResultSet rs = st.getGeneratedKeys();
+                if (rs.next()) {
+                    Long id = rs.getLong(1);
+                    product.setId(id);
+                }
+                DB.closeResultSet(rs);
+            } else {
+                throw new DbException("Não foi possível inserir o produto!");
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+
+        }
     }
 
     @Override
