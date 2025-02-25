@@ -46,12 +46,12 @@
                <children>
                   <VBox layoutX="-7.0" prefHeight="618.0" prefWidth="240.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="909.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="208.0" styleClass="label-navegation" text="Frente de Caixa">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="280.0" styleClass="label-navegation" text="Frente de Caixa">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnCreateProductView" alignment="CENTER" mnemonicParsing="false" onAction="#btnCreateProductViewClick" prefHeight="57.0" prefWidth="243.0" styleClass="button-side-navegation" text="Adicionar Produto">
+                        <Button alignment="CENTER" mnemonicParsing="false" prefHeight="57.0" prefWidth="243.0" styleClass="button-side-navegation" text="Adicionar Produto">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -111,12 +111,12 @@
                   <TableView layoutX="249.0" layoutY="281.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="380.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="234.0" />
                   <VBox layoutX="6.0" layoutY="7.0" prefHeight="614.0" prefWidth="240.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="909.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" prefHeight="80.0" prefWidth="213.0" styleClass="label-navegation" text="Controle de Estoque">
+                        <Label alignment="CENTER" prefHeight="80.0" prefWidth="390.0" styleClass="label-navegation" text="Controle de Estoque">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Button mnemonicParsing="false" prefHeight="37.0" prefWidth="213.0" styleClass="button-side-navegation" text="Adicionar Produto">
+                        <Button fx:id="btnCreateProductView" mnemonicParsing="false" onAction="#btnCreateProductViewClick" prefHeight="58.0" prefWidth="328.0" styleClass="button-side-navegation" text="Adicionar Produto">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -128,7 +128,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="10.0" layoutY="72.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="213.0" styleClass="button-side-navegation" text="Buscar Produto">
+                        <Button layoutX="10.0" layoutY="72.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="250.0" styleClass="button-side-navegation" text="Buscar Produto">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -140,7 +140,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="10.0" layoutY="129.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="213.0" styleClass="button-side-navegation" text="Alterar Produto">
+                        <Button layoutX="10.0" layoutY="129.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="368.0" styleClass="button-side-navegation" text="Alterar Produto">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -152,7 +152,7 @@
                               </ImageView>
                            </graphic>
                         </Button>
-                        <Button layoutX="10.0" layoutY="186.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="213.0" styleClass="button-side-navegation" text="Remover Produto">
+                        <Button layoutX="10.0" layoutY="186.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="453.0" styleClass="button-side-navegation" text="Remover Produto">
                            <font>
                               <Font size="18.0" />
                            </font>
