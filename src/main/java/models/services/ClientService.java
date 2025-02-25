@@ -27,7 +27,7 @@ public class ClientService implements ClientDao {
     }
 
     @Override
-    public void updateById(Long id) {
+    public void update(Client client) {
 
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 public class OrderService implements OrderDao {
 
+
     @Override
     public void insert(Order order) {
 
@@ -28,7 +29,7 @@ public class OrderService implements OrderDao {
     }
 
     @Override
-    public void updateById(Long id) {
+    public void update(Order order) {
 
     }
 }

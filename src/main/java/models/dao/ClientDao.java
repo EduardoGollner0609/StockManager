@@ -14,6 +14,6 @@ public interface ClientDao {
 
     void deleteById(Long id);
 
-    void updateById(Long id);
+    void update(Client client);
 
 }

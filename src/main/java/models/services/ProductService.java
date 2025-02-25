@@ -32,10 +32,8 @@ public class ProductService implements ProductDao {
                             "(name, description, quantity, price) " +
                             "VALUES " +
                             "(?, ?, ?, ?)");
-            st.setString(1, product.getName());
-            st.setString(2, product.getDescription());
-            st.setInt(3, product.getQuantity());
-            st.setDouble(4, product.getPrice());
+
+            prepareStatementInsertData(st, product);
 
             int rowsAffected = st.executeUpdate();
 
@@ -107,8 +105,22 @@ public class ProductService implements ProductDao {
     }
 
     @Override
-    public void updateById(Long id) {
+    public void update(Product product) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("UPDATE tb_product" +
+                    "SET name = ?, description = ?, quantity = ?, price = ? " +
+                    "WHERE id = ?");
 
+            prepareStatementInsertData(st, product);
+            st.setLong(5, product.getId());
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
     }
 
     private Product instantiateProduct(ResultSet rs) throws SQLException {
@@ -118,5 +130,12 @@ public class ProductService implements ProductDao {
                 rs.getInt("quantity"),
                 rs.getDouble("price")
         );
+    }
+
+    private void prepareStatementInsertData(PreparedStatement st, Product product) throws SQLException {
+        st.setString(1, product.getName());
+        st.setString(2, product.getDescription());
+        st.setInt(3, product.getQuantity());
+        st.setDouble(4, product.getPrice());
     }
 }

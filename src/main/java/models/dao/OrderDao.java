@@ -15,6 +15,6 @@ public interface OrderDao {
 
     void deleteById(Long id);
 
-    void updateById(Long id);
+    void update(Order order);
 
 }
