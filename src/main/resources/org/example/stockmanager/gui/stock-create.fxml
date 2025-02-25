@@ -8,7 +8,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@../css/stock-create.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@../css/stock-create.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StockController">
    <children>
       <Text fill="WHITE" layoutX="224.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-stock-create" text="Criar Produto" />
       <Label layoutX="58.0" layoutY="75.0" text="Nome" textFill="WHITE">
@@ -16,25 +16,25 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <TextField layoutX="58.0" layoutY="100.0" promptText="Nome" />
-      <TextField layoutX="57.0" layoutY="168.0" promptText="Quantidade" />
+      <TextField fx:id="txtName" layoutX="58.0" layoutY="100.0" promptText="Nome" />
+      <TextField fx:id="txtQuantity" layoutX="57.0" layoutY="168.0" promptText="Quantidade" />
       <Label layoutX="58.0" layoutY="140.0" text="Quantidade" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <TextArea layoutX="301.0" layoutY="102.0" prefHeight="175.0" prefWidth="262.0" promptText="Descrição" styleClass="text-area" />
+      <TextArea fx:id="txtDescription" layoutX="301.0" layoutY="102.0" prefHeight="175.0" prefWidth="262.0" promptText="Descrição" styleClass="text-area" />
       <Label layoutX="301.0" layoutY="75.0" text="Descrição" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <Button layoutX="224.0" layoutY="319.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="153.0" styleClass="button-create" text="Criar Produto">
+      <Button fx:id="btnCreateConfirm" layoutX="224.0" layoutY="319.0" mnemonicParsing="false" onAction="#btnCreateConfirmClick" prefHeight="35.0" prefWidth="153.0" styleClass="button-create" text="Criar Produto">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField layoutX="57.0" layoutY="233.0" promptText="Preço" />
+      <TextField fx:id="txtPrice" layoutX="57.0" layoutY="233.0" promptText="Preço" />
       <Label layoutX="57.0" layoutY="206.0" text="Preço" textFill="WHITE">
          <font>
             <Font size="29.0" />

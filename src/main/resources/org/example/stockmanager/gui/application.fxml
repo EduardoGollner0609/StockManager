@@ -51,7 +51,7 @@
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Button fx:id="btnCreateProduct" alignment="CENTER" mnemonicParsing="false" onAction="#btnCreateProductClick" prefHeight="57.0" prefWidth="243.0" styleClass="button-side-navegation" text="Adicionar Produto">
+                        <Button fx:id="btnCreateProductView" alignment="CENTER" mnemonicParsing="false" onAction="#btnCreateProductViewClick" prefHeight="57.0" prefWidth="243.0" styleClass="button-side-navegation" text="Adicionar Produto">
                            <font>
                               <Font size="18.0" />
                            </font>

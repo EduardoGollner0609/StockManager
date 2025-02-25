@@ -37,14 +37,7 @@ public class ProductService implements ProductDao {
 
             int rowsAffected = st.executeUpdate();
 
-            if (rowsAffected > 0) {
-                ResultSet rs = st.getGeneratedKeys();
-                if (rs.next()) {
-                    Long id = rs.getLong(1);
-                    product.setId(id);
-                }
-                DB.closeResultSet(rs);
-            } else {
+            if (rowsAffected <= 0) {
                 throw new DbException("Não foi possível inserir o produto!");
             }
         } catch (SQLException e) {

@@ -15,13 +15,13 @@ import java.util.ResourceBundle;
 public class ApplicationController implements Initializable {
 
     @FXML
-    private Button btnCreateProduct;
+    private Button btnCreateProductView;
 
     @FXML
-    public void btnCreateProductClick() {
+    public void btnCreateProductViewClick() {
         try {
             Stage stage = new Stage();
-            Parent parent = FXMLLoader.load(getClass().getResource("/gui/stock-create.fxml"));
+            Parent parent = FXMLLoader.load(getClass().getResource("/org/example/stockmanager/gui/stock-create.fxml"));
             Scene scene = new Scene(parent);
             stage.setScene(scene);
             stage.show();
