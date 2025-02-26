@@ -64,6 +64,8 @@
 -fx-background-color: transparent;
 -fx-border-width: 0 0 2px 0;
 -fx-border-color: #FFF;
+-fx-text-fill: #FFF;
+-fx-font-size: 18px;
 }
 
 .button-cashier-front-remove {
@@ -83,7 +85,7 @@
 }
 
 .table-view {
--fx-background-color: transparent;
+-fx-background-color: #1A1A1A;
 }
 
 .table-view .column-header-background {
@@ -96,5 +98,23 @@
 }
 
 .table-row-cell {
-    -fx-background-color: #FFF;
+    -fx-background-color: #1A1A1A;
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
 }
+
+.table-cell {
+    -fx-text-fill: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+}
+
+
+.table-view .table-cell {
+    -fx-border-color: #FFF;
+    -fx-border-width: 0 1px 0 0;
+}
+

@@ -1,4 +1,4 @@
-package services.exceptions;
+package exceptions;
 
 public class CaracterInvalidException extends RuntimeException {
 

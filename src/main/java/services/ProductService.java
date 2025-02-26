@@ -79,6 +79,7 @@ public class ProductService implements ProductDao {
         try {
             st = conn.prepareStatement("SELECT *" +
                     "FROM tb_product");
+            rs = st.executeQuery();
             List<Product> products = new ArrayList<>();
             while (rs.next()) {
                 products.add(instantiateProduct(rs));

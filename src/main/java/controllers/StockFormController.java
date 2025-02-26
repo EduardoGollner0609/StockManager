@@ -1,5 +1,6 @@
 package controllers;
 
+import db.DB;
 import db.DbException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -9,9 +10,11 @@ import javafx.scene.control.TextField;
 import models.dao.DaoFactory;
 import models.dao.ProductDao;
 import models.entities.Product;
-import services.exceptions.CaracterInvalidException;
-import services.exceptions.FieldRequiredNullException;
+import services.ProductService;
 import utils.Alerts;
+
+import exceptions.CaracterInvalidException;
+import exceptions.FieldRequiredNullException;
 
 public class StockFormController {
 

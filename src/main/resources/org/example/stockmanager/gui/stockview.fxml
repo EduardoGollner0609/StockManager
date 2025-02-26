@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -12,7 +13,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="663.0" prefWidth="1149.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StockListController">
     <children>
-        <TableView layoutY="281.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="429.0" prefWidth="1149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="234.0">
+        <TableView fx:id="tableViewStock" layoutY="265.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="398.0" prefWidth="1149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="265.0">
             <columns>
                 <TableColumn fx:id="tableColumnId" prefWidth="123.0" text="Código" />
                 <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="194.0" text="Nome" />
@@ -21,7 +22,7 @@
                 <TableColumn fx:id="tableColumnPrice" prefWidth="136.0" text="Preço" />
             </columns>
         </TableView>
-        <VBox layoutX="6.0" layoutY="7.0" maxHeight="233.0" prefHeight="233.0" prefWidth="248.0" AnchorPane.bottomAnchor="430.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="901.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutX="6.0" layoutY="7.0" maxHeight="263.0" prefHeight="257.0" prefWidth="248.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="901.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label alignment="CENTER" prefHeight="80.0" prefWidth="246.0" styleClass="label-navegation" text="Controle de Estoque">
                     <font>
@@ -52,7 +53,21 @@
                         </ImageView>
                     </graphic>
                 </Button>
+            <Button fx:id="btnReloadTable" mnemonicParsing="false" onAction="#onBtnReloadTable" prefHeight="58.0" prefWidth="246.0" styleClass="button-side-navegation" text="Atualizar Tabela">
+               <font>
+                  <Font size="18.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imgs/reload-icon.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
             </children>
         </VBox>
+      <TextField fx:id="txtSearchProduct" layoutX="315.0" layoutY="212.0" prefHeight="36.0" prefWidth="279.0" />
+      <Label layoutX="315.0" layoutY="182.0" text="Buscar Produto" />
     </children>
 </AnchorPane>

@@ -17,6 +17,8 @@
 -fx-background-color: transparent;
 -fx-border-width: 0 0 2px 0;
 -fx-border-color: #FFF;
+-fx-text-fill: #FFF;
+-fx-font-size: 18px;
 }
 
 .text-area, .button-create {
