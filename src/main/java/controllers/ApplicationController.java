@@ -18,7 +18,7 @@ public class ApplicationController implements Initializable {
     private Button btnCreateProductView;
 
     @FXML
-    public void btnCreateProductViewClick() {
+    public void onbtnCreateProduct() {
         try {
             Stage stage = new Stage();
             Parent parent = FXMLLoader.load(getClass().getResource("/org/example/stockmanager/gui/stock-create.fxml"));
