@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import models.entities.Product;
 
@@ -24,16 +25,16 @@ public class StockListController implements Initializable {
     private TableColumn<Product, Integer> tableColumnId;
 
     @FXML
-    private TableColumn<Product, String> tableColumName;
+    private TableColumn<Product, String> tableColumnName;
 
     @FXML
-    private TableColumn<Product, String> tableColumDescription;
+    private TableColumn<Product, String> tableColumnDescription;
 
     @FXML
-    private TableColumn<Product, Integer> tableColumQuantity;
+    private TableColumn<Product, Integer> tableColumnQuantity;
 
     @FXML
-    private TableColumn<Product, Double> tableColumPrice;
+    private TableColumn<Product, Double> tableColumnPrice;
 
     @FXML
     private Button btnCreateNewProduct;
@@ -41,6 +42,16 @@ public class StockListController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initializeNodes();
+    }
+
+    private void initializeNodes() {
+        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tableColumnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+
 
     }
 
