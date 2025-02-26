@@ -81,3 +81,20 @@
 -fx-cursor: hand;
 -fx-font-size: 14px;
 }
+
+.table-view {
+-fx-background-color: transparent;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: #1A1A1A;
+    -fx-padding: 4px;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-background-color: #1A1A1A;
+}
+
+.table-row-cell {
+    -fx-background-color: #FFF;
+}

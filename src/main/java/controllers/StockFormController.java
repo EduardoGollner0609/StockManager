@@ -13,7 +13,7 @@ import services.exceptions.CaracterInvalidException;
 import services.exceptions.FieldRequiredNullException;
 import utils.Alerts;
 
-public class StockController {
+public class StockFormController {
 
     private final String errorFormTitle = "Erro no formulário.";
 
