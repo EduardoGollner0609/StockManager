@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="479.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.stockmanager.gui.StockSearch">
+   <children>
+      <Label layoutX="339.0" layoutY="14.0" text="Produtos do Estoque" />
+      <TextField layoutX="239.0" layoutY="40.0" prefHeight="53.0" prefWidth="312.0" promptText="Buscar Produto" />
+      <TableView layoutY="150.0" prefHeight="330.0" prefWidth="790.0">
+        <columns>
+          <TableColumn prefWidth="132.0" text="Código" />
+          <TableColumn prefWidth="119.0" text="Nome" />
+            <TableColumn prefWidth="119.0" text="Descrição" />
+            <TableColumn prefWidth="132.0" text="Quantidade" />
+            <TableColumn prefWidth="138.0" text="Preço" />
+            <TableColumn prefWidth="149.0" text="Botão de Adicionar" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>
