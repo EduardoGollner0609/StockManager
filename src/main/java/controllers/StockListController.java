@@ -172,14 +172,18 @@ public class StockListController implements Initializable, DataChangeListener {
             StockFormController controller = loader.getController();
             controller.subscribeDataChangeListener(this);
 
+            Stage dialogStage = new Stage();
+
             if (obj != null) {
                 controller.setProduct(obj);
                 controller.setProductService(new ProductService());
                 controller.updateFormData();
+                dialogStage.setTitle("StockManager - Atualizar Produto");
+            } else {
+                dialogStage.setTitle("StockManager - Criar Produto");
             }
 
-            Stage dialogStage = new Stage();
-            dialogStage.setTitle("Entre com os dados do produto");
+
             dialogStage.setScene(new Scene(pane));
             dialogStage.setResizable(false);
             dialogStage.initOwner(parentStage);
@@ -187,7 +191,7 @@ public class StockListController implements Initializable, DataChangeListener {
             dialogStage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
-            Alerts.showAlert("IO Exception", "Error loading view", e.getMessage(), Alert.AlertType.ERROR);
+            Alerts.showAlert("Erro na hora de carregar tela.", "Erro ao carregar tela. ", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -217,7 +221,7 @@ public class StockListController implements Initializable, DataChangeListener {
 
 
     private void removeEntity(Product obj) {
-        Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
+        Optional<ButtonType> result = Alerts.showConfirmation("Deletar produto", "Tem certeza que desejo remover o produto " + obj.getName() + "?");
 
         if (result.get() == ButtonType.OK) {
             if (service == null) {
@@ -227,7 +231,7 @@ public class StockListController implements Initializable, DataChangeListener {
                 service.deleteById(obj.getId());
                 updateTableView();
             } catch (DbIntegrityException e) {
-                Alerts.showAlert("Error removing object", null, e.getMessage(), Alert.AlertType.ERROR);
+                Alerts.showAlert("Erro ao remover produto", null, e.getMessage(), Alert.AlertType.ERROR);
             }
         }
     }

@@ -19,9 +19,16 @@ public class Application extends javafx.application.Application {
         double screenWidth = screen.getVisualBounds().getWidth();
         double screenHeight = screen.getVisualBounds().getHeight();
 
-        stage.setWidth(screenWidth);
-        stage.setHeight(screenHeight);
+        double width = screenWidth * 0.8;
+        double height = screenHeight * 0.8;
+
+        stage.setWidth(width);
+        stage.setHeight(height);
+
+        stage.setTitle("StockManager");
+
         stage.setScene(scene);
+        
         stage.show();
     }
 

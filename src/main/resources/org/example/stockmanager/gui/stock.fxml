@@ -13,7 +13,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="663.0" prefWidth="1149.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StockListController">
     <children>
-        <TableView fx:id="tableViewStock" layoutY="265.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="398.0" prefWidth="1149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="265.0">
+        <TableView fx:id="tableViewStock" layoutY="293.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="370.0" prefWidth="1149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="293.0">
             <columns>
                 <TableColumn fx:id="tableColumnId" prefWidth="134.0" text="Código" />
                 <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="261.0" text="Nome" />
@@ -27,7 +27,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
         </TableView>
-        <VBox layoutX="6.0" layoutY="7.0" maxHeight="263.0" prefHeight="257.0" prefWidth="248.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="901.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutX="6.0" layoutY="7.0" maxHeight="263.0" prefHeight="201.0" prefWidth="248.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="901.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label alignment="CENTER" prefHeight="80.0" prefWidth="246.0" styleClass="label-navegation" text="Controle de Estoque">
                     <font>
@@ -46,18 +46,6 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button layoutX="10.0" layoutY="72.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="246.0" styleClass="button-side-navegation" text="Buscar Produto">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <graphic>
-                        <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@../imgs/search-icon.png" />
-                            </image>
-                        </ImageView>
-                    </graphic>
-                </Button>
             <Button fx:id="btnReloadTable" mnemonicParsing="false" onAction="#onBtnReloadTable" prefHeight="58.0" prefWidth="246.0" styleClass="button-side-navegation" text="Atualizar Tabela">
                <font>
                   <Font size="18.0" />
@@ -72,7 +60,14 @@
             </Button>
             </children>
         </VBox>
-      <TextField fx:id="txtSearchProduct" layoutX="315.0" layoutY="212.0" prefHeight="36.0" prefWidth="279.0" />
-      <Label layoutX="315.0" layoutY="182.0" text="Buscar Produto" />
+      <TextField fx:id="txtSearchProduct" layoutX="14.0" layoutY="242.0" prefHeight="36.0" prefWidth="279.0" promptText="Buscar Produto" />
+      <Label layoutX="14.0" layoutY="207.0" text="Buscar Produto">
+         <graphic>
+            <ImageView fitHeight="29.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../imgs/search-icon.png" />
+               </image>
+            </ImageView>
+         </graphic></Label>
     </children>
 </AnchorPane>
