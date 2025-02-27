@@ -4,11 +4,11 @@ import java.util.Objects;
 
 public class Product {
 
-    private Long id;
-    private String name;
+    protected Long id;
+    protected String name;
     private String description;
-    private Integer quantity;
-    private Double price;
+    protected Integer quantity;
+    protected Double price;
 
     public Product() {
     }
