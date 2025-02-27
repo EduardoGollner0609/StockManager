@@ -16,10 +16,12 @@
         <TableView fx:id="tableViewStock" layoutY="265.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="398.0" prefWidth="1149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="265.0">
             <columns>
                 <TableColumn fx:id="tableColumnId" prefWidth="151.0" text="Código" />
-                <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="244.0" text="Nome" />
-                <TableColumn fx:id="tableColumnDescription" minWidth="0.0" prefWidth="439.0" text="Descrição" />
-                <TableColumn fx:id="tableColumnQuantity" minWidth="0.0" prefWidth="162.0" text="Quantidade" />
-                <TableColumn fx:id="tableColumnPrice" prefWidth="152.0" text="Preço" />
+                <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="177.0" text="Nome" />
+                <TableColumn fx:id="tableColumnDescription" minWidth="0.0" prefWidth="257.0" text="Descrição" />
+                <TableColumn fx:id="tableColumnQuantity" minWidth="0.0" prefWidth="143.0" text="Quantidade" />
+                <TableColumn fx:id="tableColumnPrice" prefWidth="187.0" text="Preço" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="120.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="112.0" />
             </columns>
         </TableView>
         <VBox layoutX="6.0" layoutY="7.0" maxHeight="263.0" prefHeight="257.0" prefWidth="248.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="901.0" AnchorPane.topAnchor="0.0">
@@ -29,7 +31,7 @@
                         <Font size="20.0" />
                     </font>
                 </Label>
-                <Button fx:id="btnCreateNewProduct" mnemonicParsing="false" onAction="#onBtnCreateNewProduct" prefHeight="58.0" prefWidth="246.0" styleClass="button-side-navegation" text="Adicionar Produto">
+                <Button fx:id="btnOpenForm" mnemonicParsing="false" onAction="#onBtnOpenForm" prefHeight="58.0" prefWidth="246.0" styleClass="button-side-navegation" text="Adicionar Produto">
                     <font>
                         <Font size="18.0" />
                     </font>

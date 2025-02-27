@@ -4,6 +4,7 @@ module org.example.stockmanager {
     requires java.sql;
     requires mysql.connector.j;
     requires jdk.compiler;
+    requires java.desktop;
 
 
     opens org.example.stockmanager to javafx.fxml;

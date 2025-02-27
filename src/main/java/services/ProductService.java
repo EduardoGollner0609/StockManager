@@ -2,6 +2,7 @@ package services;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import models.dao.ProductDao;
 import models.entities.Product;
 
@@ -93,18 +94,27 @@ public class ProductService implements ProductDao {
         }
     }
 
+    public void saveOrUpdate(Product product) {
+        if (product.getId() == null) {
+            insert(product);
+        } else {
+            update(product);
+        }
+    }
+
     @Override
     public void deleteById(Long id) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("DELETE FROM tb_product" +
+            st = conn.prepareStatement("DELETE FROM tb_product " +
                     "WHERE id = ?");
 
             st.setLong(1, id);
 
             st.executeUpdate();
+
         } catch (SQLException e) {
-            throw new DbException(e.getMessage());
+            throw new DbIntegrityException(e.getMessage());
         } finally {
             DB.closeStatement(st);
         }
@@ -114,7 +124,7 @@ public class ProductService implements ProductDao {
     public void update(Product product) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("UPDATE tb_product" +
+            st = conn.prepareStatement("UPDATE tb_product " +
                     "SET name = ?, description = ?, quantity = ?, price = ? " +
                     "WHERE id = ?");
 

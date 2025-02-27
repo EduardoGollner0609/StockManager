@@ -53,7 +53,7 @@
         </Tab>
         <Tab text="Controle de Estoque">
             <content>
-                <fx:include source="stockview.fxml"/>
+                <fx:include source="stock.fxml"/>
             </content>
         </Tab>
     </tabs>

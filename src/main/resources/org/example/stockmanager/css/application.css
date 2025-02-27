@@ -118,3 +118,13 @@
     -fx-border-width: 0 1px 0 0;
 }
 
+.table-view .button {
+-fx-background-color: transparent;
+-fx-text-fill: #FFF;
+-fx-border: 2px;
+-fx-border-color: #FFF;
+-fx-cursor: hand;
+-fx-border-radius: 4px;
+-fx-position: center;
+}
+

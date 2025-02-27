@@ -1,12 +1,14 @@
 package controllers;
 
-import db.DB;
 import db.DbException;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import listeners.DataChangeListener;
 import models.dao.DaoFactory;
 import models.dao.ProductDao;
 import models.entities.Product;
@@ -15,11 +17,24 @@ import utils.Alerts;
 
 import exceptions.CaracterInvalidException;
 import exceptions.FieldRequiredNullException;
+import utils.Utils;
 
-public class StockFormController {
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+public class StockFormController implements Initializable {
 
     private final String errorFormTitle = "Erro no formulário.";
 
+    private Product product;
+
+    private ProductService service;
+
+    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
+
+    private Long productId;
     @FXML
     private TextField txtName;
 
@@ -36,7 +51,7 @@ public class StockFormController {
     private Button btnCreateConfirm;
 
     @FXML
-    public void btnCreateConfirmClick() {
+    public void onBtnCreateConfirm(ActionEvent event) {
 
         String nameTxt = txtName.getText();
         String quantityTxt = txtQuantity.getText();
@@ -44,19 +59,42 @@ public class StockFormController {
         String descriptionTxt = txtDescription.getText();
 
 
-        Product product = validateAndCreateDataProduct(nameTxt, quantityTxt, priceTxt, descriptionTxt);
+        product = validateAndCreateDataProduct(nameTxt, quantityTxt, priceTxt, descriptionTxt);
 
         if (product != null) {
             try {
                 ProductDao productDao = DaoFactory.createProduct();
-                productDao.insert(product);
+
+                productDao.saveOrUpdate(product);
 
                 Alerts.showAlert("Sucesso", null, "Salvo com sucesso", Alert.AlertType.INFORMATION);
+                notifyDataChangeListeners();
+                Utils.currentStage(event).close();
+
             } catch (DbException e) {
                 Alerts.showAlert(errorFormTitle, null, "Erro ao salvar o usuário", Alert.AlertType.ERROR);
             }
         }
     }
+
+    private void notifyDataChangeListeners() {
+        for (DataChangeListener listener : dataChangeListeners) {
+            listener.onDataChanged();
+        }
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setProductService(ProductService service) {
+        this.service = service;
+    }
+
+    public void subscribeDataChangeListener(DataChangeListener listener) {
+        dataChangeListeners.add(listener);
+    }
+
 
     private void validateForm(String nameTxt, String quantityTxt, String priceTxt, String descriptionTxt) {
         if (!checkNotNull(nameTxt, quantityTxt, priceTxt, descriptionTxt)) {
@@ -70,9 +108,16 @@ public class StockFormController {
     private Product validateAndCreateDataProduct(String nameTxt, String quantityTxt, String priceTxt, String descriptionTxt) {
         try {
             validateForm(nameTxt, quantityTxt, priceTxt, descriptionTxt);
-
+            if (productId != null) {
+                return new Product(
+                        productId,
+                        nameTxt,
+                        descriptionTxt,
+                        Integer.parseInt(quantityTxt),
+                        Double.parseDouble(priceTxt)
+                );
+            }
             return new Product(
-                    null,
                     nameTxt,
                     descriptionTxt,
                     Integer.parseInt(quantityTxt),
@@ -109,4 +154,25 @@ public class StockFormController {
             return false;
         }
     }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+
+    }
+
+    public void updateFormData() {
+
+        if (product == null) {
+            throw new IllegalStateException("Produto é nulo");
+        }
+
+        productId = product.getId();
+        txtName.setText(product.getName());
+        txtDescription.setText(product.getDescription());
+        txtQuantity.setText(String.valueOf(product.getQuantity()));
+        txtPrice.setText(String.valueOf(product.getPrice()));
+
+    }
+
+
 }
