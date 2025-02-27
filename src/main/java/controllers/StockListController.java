@@ -187,7 +187,6 @@ public class StockListController implements Initializable, DataChangeListener {
 
             StockFormController controller = loader.getController();
             controller.subscribeDataChangeListener(this);
-            CashierFrontListController cashierFrontController = loader.getController();
             Stage dialogStage = new Stage();
 
             if (obj != null) {

@@ -27,22 +27,36 @@ public class CartItemService implements CartItemDao {
     @Override
     public void insert(CartItem cartItem) {
         PreparedStatement st = null;
+        ResultSet rs = null;
         try {
-            st = conn.prepareStatement(
-                    "INSERT INTO tb_cart(quantity, total_value, product_id) " +
-                            "VALUES (?, ?, ?)");
+            rs = existsByProductId(st, cartItem.getProductId());
+            if (rs.next()) {
+                st = conn.prepareStatement("UPDATE tb_cart " +
+                        "SET quantity = quantity + ? " +
+                        "WHERE product_id = ?");
+                st.setInt(1, cartItem.getQuantity());
+                st.setLong(2, cartItem.getProductId());
 
-            st.setInt(1, cartItem.getQuantity());
-            st.setDouble(2, cartItem.getTotalValue());
-            st.setLong(3, cartItem.getProductId());
+                int rowsAffected = st.executeUpdate();
 
-            int rowsAffected = st.executeUpdate();
+                if (rowsAffected <= 0) {
+                    throw new DbException("Não foi possível inserir o produto!");
+                }
+            } else {
+                st = conn.prepareStatement(
+                        "INSERT INTO tb_cart(quantity, total_value, product_id) " +
+                                "VALUES (?, ?, ?)");
 
-            if (rowsAffected <= 0) {
-                throw new DbException("Não foi possível inserir o produto!");
+                st.setInt(1, cartItem.getQuantity());
+                st.setDouble(2, cartItem.getTotalValue());
+                st.setLong(3, cartItem.getProductId());
+
+                int rowsAffected = st.executeUpdate();
+
+                if (rowsAffected <= 0) {
+                    throw new DbException("Não foi possível inserir o produto!");
+                }
             }
-
-
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
@@ -99,5 +113,13 @@ public class CartItemService implements CartItemDao {
                 rs.getInt("quantity"),
                 rs.getDouble("price"),
                 rs.getDouble("total_value"));
+    }
+
+    private ResultSet existsByProductId(PreparedStatement st, Long productId) throws SQLException {
+        st = conn.prepareStatement("SELECT * " +
+                "FROM tb_cart " +
+                "WHERE product_id = ?");
+        st.setLong(1, productId);
+        return st.executeQuery();
     }
 }
