@@ -28,7 +28,7 @@ public class Application extends javafx.application.Application {
         stage.setTitle("StockManager");
 
         stage.setScene(scene);
-        
+
         stage.show();
     }
 

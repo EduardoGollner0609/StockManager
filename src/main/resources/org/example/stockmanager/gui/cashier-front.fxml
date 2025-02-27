@@ -48,11 +48,11 @@
         </VBox>
         <TableView layoutX="249.0" layoutY="245.0" prefHeight="380.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="234.0">
             <columns>
-                <TableColumn prefWidth="123.0" text="Código" />
-                <TableColumn minWidth="0.0" prefWidth="194.0" text="Nome" />
-                <TableColumn minWidth="0.0" prefWidth="303.0" text="Descrição" />
-                <TableColumn minWidth="0.0" prefWidth="143.0" text="Quantidade" />
-                <TableColumn prefWidth="136.0" text="Preço" />
+                <TableColumn fx:id="tableColumnId" prefWidth="123.0" text="Código" />
+                <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="194.0" text="Nome" />
+                <TableColumn fx:id="tableColumnDescription" minWidth="0.0" prefWidth="235.0" text="Descrição" />
+                <TableColumn fx:id="tableColumnQuantity" minWidth="0.0" prefWidth="134.0" text="Quantidade" />
+                <TableColumn fx:id="tableColumnPrice" prefWidth="104.0" text="Preço" />
             </columns>
         </TableView>
         <TextField layoutX="683.0" layoutY="57.0" prefHeight="35.0" prefWidth="221.0" AnchorPane.rightAnchor="245.0" />
