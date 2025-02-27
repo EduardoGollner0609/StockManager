@@ -69,6 +69,25 @@ public class StockListController implements Initializable, DataChangeListener {
 
     private ProductService service;
 
+
+    private void setupSearchListener() {
+        txtSearchProduct.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterProductList(newValue);
+        });
+    }
+
+    private void filterProductList(String searchQuery) {
+        ObservableList<Product> filteredList = FXCollections.observableArrayList();
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+
+        tableViewStock.setItems(filteredList);
+
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeNodes();
@@ -86,6 +105,8 @@ public class StockListController implements Initializable, DataChangeListener {
 
         setProductService(new ProductService(DB.getConnection()));
         updateTableView();
+
+        setupSearchListener();
 
     }
 

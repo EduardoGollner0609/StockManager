@@ -125,5 +125,25 @@
 -fx-border-color: #FFF;
 -fx-cursor: hand;
 -fx-border-radius: 4px;
--fx-position: center;
 }
+
+.text-field .text {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.text-field .context-menu {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.text-field .context-menu .menu-item {
+    -fx-background-color: black;
+    -fx-text-fill: white;
+}
+
+.text-field .context-menu .menu-item:hover {
+    -fx-background-color: darkgray;
+    -fx-text-fill: white;
+}
+

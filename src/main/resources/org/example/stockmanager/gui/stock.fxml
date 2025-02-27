@@ -15,13 +15,13 @@
     <children>
         <TableView fx:id="tableViewStock" layoutY="265.0" maxWidth="1149.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="398.0" prefWidth="1149.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="265.0">
             <columns>
-                <TableColumn fx:id="tableColumnId" prefWidth="151.0" text="Código" />
-                <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="177.0" text="Nome" />
-                <TableColumn fx:id="tableColumnDescription" minWidth="0.0" prefWidth="257.0" text="Descrição" />
-                <TableColumn fx:id="tableColumnQuantity" minWidth="0.0" prefWidth="143.0" text="Quantidade" />
-                <TableColumn fx:id="tableColumnPrice" prefWidth="187.0" text="Preço" />
-            <TableColumn fx:id="tableColumnEDIT" prefWidth="120.0" />
-            <TableColumn fx:id="tableColumnREMOVE" prefWidth="112.0" />
+                <TableColumn fx:id="tableColumnId" prefWidth="134.0" text="Código" />
+                <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="261.0" text="Nome" />
+                <TableColumn fx:id="tableColumnDescription" minWidth="0.0" prefWidth="288.0" text="Descrição" />
+                <TableColumn fx:id="tableColumnQuantity" minWidth="0.0" prefWidth="121.0" text="Quantidade" />
+                <TableColumn fx:id="tableColumnPrice" prefWidth="142.0" text="Preço" />
+            <TableColumn fx:id="tableColumnEDIT" prefWidth="100.0" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="100.0" />
             </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
