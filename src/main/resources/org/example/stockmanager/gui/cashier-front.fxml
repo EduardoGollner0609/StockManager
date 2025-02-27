@@ -13,7 +13,7 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="634.0" prefWidth="1040.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CashierFrontListController">
     <children>
-        <VBox layoutX="-7.0" prefHeight="638.0" prefWidth="248.0" AnchorPane.bottomAnchor="-4.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="792.0" AnchorPane.topAnchor="0.0">
+        <VBox layoutX="-7.0" prefHeight="218.0" prefWidth="248.0" AnchorPane.bottomAnchor="416.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="792.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="80.0" prefWidth="246.0" styleClass="label-navegation" text="Frente de Caixa">
                     <font>
@@ -46,13 +46,14 @@
                 </Button>
             </children>
         </VBox>
-        <TableView fx:id="tableViewStock" layoutX="249.0" layoutY="245.0" prefHeight="380.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="249.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="234.0">
+        <TableView fx:id="tableViewCart" layoutY="245.0" prefHeight="400.0" prefWidth="1040.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="234.0">
             <columns>
-                <TableColumn fx:id="tableColumnId" prefWidth="123.0" text="Código" />
-                <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="194.0" text="Nome" />
-                <TableColumn fx:id="tableColumnDescription" minWidth="0.0" prefWidth="235.0" text="Descrição" />
-                <TableColumn fx:id="tableColumnQuantity" minWidth="0.0" prefWidth="134.0" text="Quantidade" />
-                <TableColumn fx:id="tableColumnPrice" prefWidth="104.0" text="Preço" />
+                <TableColumn fx:id="tableColumnId" prefWidth="131.19997864961624" text="Código" />
+                <TableColumn fx:id="tableColumnName" minWidth="0.0" prefWidth="208.0000762939453" text="Nome" />
+                <TableColumn fx:id="tableColumnDescription" minWidth="0.0" prefWidth="244.800048828125" text="Descrição" />
+                <TableColumn fx:id="tableColumnQuantity" minWidth="0.0" prefWidth="127.20001220703125" text="Quantidade" />
+                <TableColumn fx:id="tableColumnPrice" prefWidth="112.79998779296875" text="Preço" />
+            <TableColumn fx:id="tableColumnTotalValue" prefWidth="112.79998779296875" text="Valor Total" />
             </columns>
         </TableView>
         <TextField layoutX="683.0" layoutY="57.0" prefHeight="35.0" prefWidth="221.0" AnchorPane.rightAnchor="245.0" />

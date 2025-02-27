@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import listeners.DataChangeListener;
 import models.dao.CartItemDao;
 import models.dao.DaoFactory;
 import models.dao.ProductDao;
@@ -13,9 +12,6 @@ import models.entities.CartItem;
 import models.entities.Product;
 import utils.Alerts;
 import utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConfirmQuantityController {
 
@@ -26,8 +22,6 @@ public class ConfirmQuantityController {
 
     @FXML
     private Button btnConfirmQuantity;
-
-    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     public void setProduct(Product product) {
         this.product = product;
@@ -47,20 +41,11 @@ public class ConfirmQuantityController {
             return;
         }
 
-        confirmOperationCart(quantity);
-        Alerts.showAlert("Sucesso", null, "Adicionado ao carrinho com sucesso!", Alert.AlertType.CONFIRMATION);
-        notifyDataChangeListeners();
-        Utils.currentStage(event).close();
-
+        confirmOperationCart(quantity, event);
     }
 
-    private void notifyDataChangeListeners() {
-        for (DataChangeListener listener : dataChangeListeners) {
-            listener.onDataChanged();
-        }
-    }
 
-    private void confirmOperationCart(Integer quantity) {
+    private void confirmOperationCart(Integer quantity, ActionEvent event) {
 
         if (quantity != null && quantity > product.getQuantity()) {
             Alerts.showAlert("Erro ao adicionar ao carrinho", null, "A quantidade exigida é maior que a disponível.", Alert.AlertType.ERROR);
@@ -70,12 +55,9 @@ public class ConfirmQuantityController {
             product.setQuantity(product.getQuantity() - quantity);
             ProductDao productDao = DaoFactory.createProduct();
             productDao.update(product);
-
+            Alerts.showAlert("Sucesso", null, "Adicionado ao carrinho com sucesso!", Alert.AlertType.CONFIRMATION);
+            Utils.currentStage(event).close();
         }
-    }
-
-    public void subscribeDataChangeListener(DataChangeListener listener) {
-        dataChangeListeners.add(listener);
     }
 
     private Double calculateTotalValue(Double price, Integer quantity) {

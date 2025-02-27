@@ -188,7 +188,7 @@ public class StockListController implements Initializable, DataChangeListener {
 
             StockFormController controller = loader.getController();
             controller.subscribeDataChangeListener(this);
-
+            CashierFrontListController cashierFrontController = loader.getController();
             Stage dialogStage = new Stage();
 
             if (obj != null) {
@@ -283,7 +283,6 @@ public class StockListController implements Initializable, DataChangeListener {
             Pane pane = loader.load();
             ConfirmQuantityController controller = loader.getController();
             controller.setProduct(obj);
-            controller.subscribeDataChangeListener(this);
 
             Stage stage = new Stage();
 
