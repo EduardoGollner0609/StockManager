@@ -4,6 +4,7 @@ import db.DB;
 import db.DbException;
 import models.dao.CartItemDao;
 import models.entities.CartItem;
+import models.entities.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -28,11 +29,12 @@ public class CartItemService implements CartItemDao {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
-                    "INSERT INTO tb_cart(totalValue, product_id) " +
-                            "VALUES (?, ?)");
+                    "INSERT INTO tb_cart(quantity, total_value, product_id) " +
+                            "VALUES (?, ?, ?)");
 
-            st.setDouble(1, cartItem.getTotalValue());
-            st.setLong(2, cartItem.getProductId());
+            st.setInt(1, cartItem.getQuantity());
+            st.setDouble(2, cartItem.getTotalValue());
+            st.setLong(3, cartItem.getProductId());
 
             int rowsAffected = st.executeUpdate();
 
@@ -43,7 +45,7 @@ public class CartItemService implements CartItemDao {
 
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }    finally {
+        } finally {
             DB.closeStatement(st);
         }
     }
@@ -69,8 +71,7 @@ public class CartItemService implements CartItemDao {
             return cart;
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             DB.closeStatement(st);
             DB.closeResultSet(rs);
         }
@@ -87,8 +88,7 @@ public class CartItemService implements CartItemDao {
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
-        }
-        finally {
+        } finally {
             DB.closeStatement(st);
         }
     }

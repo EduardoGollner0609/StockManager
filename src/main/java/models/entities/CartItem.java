@@ -23,6 +23,15 @@ public class CartItem extends Product {
         this.totalValue = totalValue;
     }
 
+    public CartItem(Integer quantity, Double totalValue, Product product) {
+        this.productId = product.getId();
+        this.name = product.getName();
+        this.quantity = quantity;
+        this.price = product.getPrice();
+        this.totalValue = totalValue;
+    }
+
+
     public Double getTotalValue() {
         return totalValue;
     }
