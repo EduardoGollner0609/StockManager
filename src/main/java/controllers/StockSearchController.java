@@ -87,9 +87,8 @@ public class StockSearchController implements Initializable, DataChangeListener 
             Pane pane = loader.load();
 
             ConfirmQuantityController controller = loader.getController();
-            controller.setProduct(obj);
+            controller.setProductAndTxtNameProduct(obj);
             controller.subscribeDataChangeListener(this);
-
 
             Stage stage = new Stage();
 
@@ -100,6 +99,7 @@ public class StockSearchController implements Initializable, DataChangeListener 
             stage.setResizable(false);
             stage.showAndWait();
         } catch (IOException e) {
+            e.getMessage();
             Alerts.showAlert("Erro na hora de carregar tela.", "Erro ao carregar tela. ", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
@@ -136,8 +136,10 @@ public class StockSearchController implements Initializable, DataChangeListener 
         productList = FXCollections.observableArrayList(list);
         tableViewStock.setItems(productList);
 
-        initAddCartButtons();
 
+        if (tableColumnADDCART != null) {
+            initAddCartButtons();
+        }
 
     }
 

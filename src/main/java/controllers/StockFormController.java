@@ -35,7 +35,7 @@ public class StockFormController implements Initializable {
     private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     private Long productId;
-    
+
     @FXML
     private TextField txtName;
 

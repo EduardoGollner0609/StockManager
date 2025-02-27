@@ -5,13 +5,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import listeners.DataChangeListener;
 import models.dao.CartItemDao;
 import models.dao.DaoFactory;
 import models.dao.ProductDao;
 import models.entities.CartItem;
 import models.entities.Product;
-import services.ProductService;
 import utils.Alerts;
 import utils.Utils;
 
@@ -22,6 +22,9 @@ public class ConfirmQuantityController {
 
     private Product product;
 
+    @FXML
+    private Text txtProductName;
+
     private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     @FXML
@@ -29,10 +32,6 @@ public class ConfirmQuantityController {
 
     @FXML
     private Button btnConfirmQuantity;
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
 
     @FXML
     public void onBtnConfirmQuantity(ActionEvent event) {
@@ -105,5 +104,8 @@ public class ConfirmQuantityController {
         dataChangeListeners.add(listener);
     }
 
-
+    public void setProductAndTxtNameProduct(Product product) {
+        this.product = product;
+        txtProductName.setText("Você está adicionando o produto: " + product.getName());
+    }
 }

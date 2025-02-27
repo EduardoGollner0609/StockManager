@@ -1,0 +1,26 @@
+.anchor-pane {
+    -fx-background-color: #1E1E1E;
+}
+
+.text, .label {
+-fx-text-fill: #FFF;
+-fx-font-size: 18px;
+}
+
+.text-field {
+-fx-background-color: transparent;
+-fx-border-width: 0 0 2px 0;
+-fx-border-color: #FFF;
+-fx-text-fill: #FFF;
+-fx-font-size: 18px;
+}
+
+.button {
+-fx-background-color: transparent;
+-fx-text-fill: #FFF;
+-fx-border-width: 2px;
+-fx-border-color: #FFF;
+-fx-border-radius: 4px;
+-fx-cursor: hand;
+-fx-font-size: 16px;
+}
