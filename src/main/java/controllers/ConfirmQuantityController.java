@@ -5,17 +5,24 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import listeners.DataChangeListener;
 import models.dao.CartItemDao;
 import models.dao.DaoFactory;
 import models.dao.ProductDao;
 import models.entities.CartItem;
 import models.entities.Product;
+import services.ProductService;
 import utils.Alerts;
 import utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConfirmQuantityController {
 
     private Product product;
+
+    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     @FXML
     private TextField txtQuantity;
@@ -55,6 +62,17 @@ public class ConfirmQuantityController {
             product.setQuantity(product.getQuantity() - quantity);
             ProductDao productDao = DaoFactory.createProduct();
             productDao.update(product);
+
+            if (CashierFrontListController.instance != null) {
+                CashierFrontListController.instance.updateTableView();
+            }
+
+            if (StockListController.instance != null) {
+                StockListController.instance.updateTableView();
+            }
+
+            notifyDataChangeListeners();
+
             Alerts.showAlert("Sucesso", null, "Adicionado ao carrinho com sucesso!", Alert.AlertType.CONFIRMATION);
             Utils.currentStage(event).close();
         }
@@ -76,4 +94,16 @@ public class ConfirmQuantityController {
             return null;
         }
     }
+
+    private void notifyDataChangeListeners() {
+        for (DataChangeListener listener : dataChangeListeners) {
+            listener.onDataChanged();
+        }
+    }
+
+    public void subscribeDataChangeListener(DataChangeListener listener) {
+        dataChangeListeners.add(listener);
+    }
+
+
 }

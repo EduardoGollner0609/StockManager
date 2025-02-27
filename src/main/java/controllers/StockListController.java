@@ -34,6 +34,8 @@ import java.util.ResourceBundle;
 
 public class StockListController implements Initializable, DataChangeListener {
 
+    public static StockListController instance;
+
     @FXML
     private TableView<Product> tableViewStock;
 
@@ -64,8 +66,7 @@ public class StockListController implements Initializable, DataChangeListener {
     @FXML
     private TableColumn<Product, Product> tableColumnREMOVE;
 
-    @FXML
-    private TableColumn<Product, Product> tableColumnADDCART;
+
 
     @FXML
     private Button btnReloadTable;
@@ -99,6 +100,8 @@ public class StockListController implements Initializable, DataChangeListener {
     }
 
     private void initializeNodes() {
+
+        instance = this;
 
         tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -142,10 +145,6 @@ public class StockListController implements Initializable, DataChangeListener {
 
         if (tableColumnREMOVE != null) {
             initRemoveButtons();
-        }
-
-        if (tableColumnADDCART != null) {
-            initAddCartButtons();
         }
 
 
@@ -250,50 +249,6 @@ public class StockListController implements Initializable, DataChangeListener {
             } catch (DbIntegrityException e) {
                 Alerts.showAlert("Erro ao remover produto", null, e.getMessage(), Alert.AlertType.ERROR);
             }
-        }
-    }
-
-    private void initAddCartButtons() {
-
-        tableColumnADDCART.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
-        tableColumnADDCART.setCellFactory(param -> new TableCell<Product, Product>() {
-
-            private final Button button = new Button("Adicionar");
-
-            {
-                button.setMaxWidth(Double.MAX_VALUE);
-            }
-
-            @Override
-            protected void updateItem(Product obj, boolean empty) {
-                super.updateItem(obj, empty);
-                if (obj == null) {
-                    setGraphic(null);
-                    return;
-                }
-                setGraphic(button);
-                button.setOnAction(event -> createConfirmQuantityView(obj, "/org/example/stockmanager/gui/confirm-quantity.fxml", Utils.currentStage(event)));
-            }
-        });
-    }
-
-    private void createConfirmQuantityView(Product obj, String nameUrl, Stage parentStage) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(nameUrl));
-            Pane pane = loader.load();
-            ConfirmQuantityController controller = loader.getController();
-            controller.setProduct(obj);
-
-            Stage stage = new Stage();
-
-            stage.setScene(new Scene(pane));
-            stage.setTitle("StockManager");
-            stage.initModality(Modality.WINDOW_MODAL);
-            stage.initOwner(parentStage);
-            stage.setResizable(false);
-            stage.showAndWait();
-        } catch (IOException e) {
-            Alerts.showAlert("Erro na hora de carregar tela.", "Erro ao carregar tela. ", e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

@@ -14,14 +14,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
 import models.entities.CartItem;
-import models.entities.Product;
-import org.example.stockmanager.Application;
 import services.CartItemService;
-import services.ProductService;
+
 
 import java.io.IOException;
 import java.net.URL;
@@ -31,6 +28,8 @@ import java.util.ResourceBundle;
 public class CashierFrontListController implements Initializable, DataChangeListener {
 
     private CartItemService service;
+
+    public static CashierFrontListController instance;
 
     @FXML
     private TableView<CartItem> tableViewCart;
@@ -84,6 +83,8 @@ public class CashierFrontListController implements Initializable, DataChangeList
 
     private void initializeNodes() {
 
+        instance = this;
+
         tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -99,14 +100,19 @@ public class CashierFrontListController implements Initializable, DataChangeList
         updateTableView();
     }
 
-    private void updateTableView() {
+    public void updateTableView() {
 
         if (service == null) {
             throw new IllegalArgumentException("Service é nulo");
         }
-
         List<CartItem> list = service.findAll();
-        cartItemList = FXCollections.observableArrayList(list);
+
+        if (cartItemList == null) {
+            cartItemList = FXCollections.observableArrayList();
+            tableViewCart.setItems(cartItemList);
+        }
+
+        cartItemList.setAll(list);
         tableViewCart.setItems(cartItemList);
     }
 
@@ -114,4 +120,6 @@ public class CashierFrontListController implements Initializable, DataChangeList
     public void onDataChanged() {
         updateTableView();
     }
+
+
 }
