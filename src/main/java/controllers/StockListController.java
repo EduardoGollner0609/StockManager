@@ -1,6 +1,7 @@
 package controllers;
 
 import db.DB;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -40,7 +41,7 @@ public class StockListController implements Initializable {
     private TableColumn<Product, Integer> tableColumnQuantity;
 
     @FXML
-    private TableColumn<Product, Double> tableColumnPrice;
+    private TableColumn<Product, String> tableColumnPrice;
 
     @FXML
     private TextField txtSearchProduct;
@@ -66,7 +67,9 @@ public class StockListController implements Initializable {
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        tableColumnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
+        tableColumnPrice.setCellValueFactory(data ->
+                new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getPrice()
+                )));
 
         setProductService(new ProductService(DB.getConnection()));
         updateTableView();
