@@ -71,6 +71,7 @@ public class StockFormController implements Initializable {
                 Alerts.showAlert("Sucesso", null, "Salvo com sucesso", Alert.AlertType.INFORMATION);
                 notifyDataChangeListeners();
                 Utils.currentStage(event).close();
+                CashierFrontListController.instance.updateTableView();
             } catch (DbException e) {
                 Alerts.showAlert(errorFormTitle, null, "Erro ao salvar o usuário", Alert.AlertType.ERROR);
             }

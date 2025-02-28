@@ -245,7 +245,7 @@ public class StockListController implements Initializable, DataChangeListener {
                 service.deleteById(obj.getId());
                 updateTableView();
             } catch (DbIntegrityException e) {
-                Alerts.showAlert("Erro ao remover produto", null, e.getMessage(), Alert.AlertType.ERROR);
+            Alerts.showAlert("Erro ao remover produto", null, "Esse produto está em seu carrinho de compras, por favor, descarte ele de lá", Alert.AlertType.ERROR);
             }
         }
     }

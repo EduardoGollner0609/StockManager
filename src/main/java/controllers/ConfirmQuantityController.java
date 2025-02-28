@@ -53,7 +53,7 @@ public class ConfirmQuantityController {
 
     private void confirmOperationCart(Integer quantity, ActionEvent event) {
 
-        if (quantity != null && quantity > product.getQuantity()) {
+        if (quantity > product.getQuantity()) {
             Alerts.showAlert("Erro ao adicionar ao carrinho", null, "A quantidade exigida é maior que a disponível.", Alert.AlertType.ERROR);
         } else {
             CartItemDao cartItemDao = DaoFactory.createCartItem();
