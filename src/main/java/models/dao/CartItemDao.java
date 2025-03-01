@@ -9,7 +9,15 @@ public interface CartItemDao {
 
     void insert(CartItem cartItem);
 
+    CartItem findByProductId(Long productId);
+
     List<CartItem> findAll();
 
+    void update(CartItem cartItem);
+
     void deleteById(Long id);
+
+    boolean existsByProductId(Long productId);
+
+
 }

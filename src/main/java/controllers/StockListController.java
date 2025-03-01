@@ -1,6 +1,5 @@
 package controllers;
 
-import db.DB;
 import db.DbIntegrityException;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -10,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -18,14 +16,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
-import models.dao.CartItemDao;
-import models.dao.DaoFactory;
 import models.entities.Product;
 import services.ProductService;
 import utils.Alerts;
 import utils.Utils;
 
-import javax.swing.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -35,6 +30,10 @@ import java.util.ResourceBundle;
 public class StockListController implements Initializable, DataChangeListener {
 
     public static StockListController instance;
+
+    private ProductService service;
+
+    private ObservableList<Product> productList;
 
     @FXML
     private TableView<Product> tableViewStock;
@@ -70,29 +69,6 @@ public class StockListController implements Initializable, DataChangeListener {
     @FXML
     private Button btnReloadTable;
 
-    private ObservableList<Product> productList;
-
-    private ProductService service;
-
-
-    private void setupSearchListener() {
-        txtSearchProduct.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterProductList(newValue);
-        });
-    }
-
-    private void filterProductList(String searchQuery) {
-        ObservableList<Product> filteredList = FXCollections.observableArrayList();
-        for (Product product : productList) {
-            if (product.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
-                filteredList.add(product);
-            }
-        }
-
-        tableViewStock.setItems(filteredList);
-
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeNodes();
@@ -110,23 +86,12 @@ public class StockListController implements Initializable, DataChangeListener {
                 new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getPrice()
                 )));
 
-        setProductService(new ProductService(DB.getConnection()));
+        setProductService(new ProductService());
+
         updateTableView();
 
         setupSearchListener();
 
-    }
-
-    @FXML
-    public void onBtnOpenForm(ActionEvent event) {
-        Stage parentStage = Utils.currentStage(event);
-        Product product = new Product();
-        createDialogForm(null, "/org/example/stockmanager/gui/stock-form.fxml", parentStage);
-    }
-
-    @FXML
-    public void onBtnReloadTable() {
-        updateTableView();
     }
 
     public void updateTableView() {
@@ -135,6 +100,7 @@ public class StockListController implements Initializable, DataChangeListener {
         }
 
         List<Product> list = service.findAll();
+
         productList = FXCollections.observableArrayList(list);
         tableViewStock.setItems(productList);
 
@@ -146,11 +112,17 @@ public class StockListController implements Initializable, DataChangeListener {
             initRemoveButtons();
         }
 
-
     }
 
-    public void setProductService(ProductService service) {
-        this.service = service;
+    @FXML
+    public void onBtnOpenForm(ActionEvent event) {
+        Stage parentStage = Utils.currentStage(event);
+        createDialogForm(null, "/org/example/stockmanager/gui/stock-form.fxml", parentStage);
+    }
+
+    @FXML
+    public void onBtnReloadTable() {
+        updateTableView();
     }
 
 
@@ -180,12 +152,11 @@ public class StockListController implements Initializable, DataChangeListener {
 
     private void createDialogForm(Product obj, String absoluteName, Stage parentStage) {
         try {
-
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
 
             StockFormController controller = loader.getController();
-            controller.setProductService(new ProductService(DB.getConnection()));
+            controller.setProductService(service);
             controller.subscribeDataChangeListener(this);
             Stage dialogStage = new Stage();
 
@@ -196,7 +167,6 @@ public class StockListController implements Initializable, DataChangeListener {
             } else {
                 dialogStage.setTitle("StockManager - Criar Produto");
             }
-
 
             dialogStage.setScene(new Scene(pane));
             dialogStage.setResizable(false);
@@ -236,7 +206,7 @@ public class StockListController implements Initializable, DataChangeListener {
     private void removeEntity(Product obj) {
         Optional<ButtonType> result = Alerts.showConfirmation("Deletar produto", "Tem certeza que desejo remover o produto " + obj.getName() + "?");
 
-        if (result.get() == ButtonType.OK) {
+        if (result.isPresent() && result.get() == ButtonType.OK) {
             if (service == null) {
                 throw new IllegalStateException("Service was null");
             }
@@ -247,6 +217,26 @@ public class StockListController implements Initializable, DataChangeListener {
                 Alerts.showAlert("Erro ao remover produto", null, "Esse produto está em seu carrinho de compras, por favor, descarte ele de lá", Alert.AlertType.ERROR);
             }
         }
+    }
+
+    private void setupSearchListener() {
+        txtSearchProduct.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterProductList(newValue);
+        });
+    }
+
+    private void filterProductList(String searchQuery) {
+        ObservableList<Product> filteredList = FXCollections.observableArrayList();
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+        tableViewStock.setItems(filteredList);
+    }
+
+    public void setProductService(ProductService service) {
+        this.service = service;
     }
 
     @Override

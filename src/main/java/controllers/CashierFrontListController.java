@@ -1,6 +1,5 @@
 package controllers;
 
-import db.DB;
 import exceptions.CaracterInvalidException;
 import exceptions.FieldRequiredNullException;
 import exceptions.ResourceNotFoundException;
@@ -32,9 +31,10 @@ import java.util.ResourceBundle;
 
 public class CashierFrontListController implements Initializable, DataChangeListener {
 
-    private CartItemService service;
 
     public static CashierFrontListController instance;
+
+    private CartItemService service;
 
     @FXML
     private TextField txtProductId;
@@ -71,25 +71,6 @@ public class CashierFrontListController implements Initializable, DataChangeList
     @FXML
     private Button btnOpenStockSearch;
 
-    @FXML
-    public void onBtnOpenStockSearch() throws IOException {
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/stockmanager/gui/stock-search.fxml"));
-        Pane pane = loader.load();
-
-        Stage stage = new Stage();
-
-        stage.setScene(new Scene(pane));
-        stage.setTitle("StockManager");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setResizable(false);
-        stage.show();
-    }
-
-    public void setCartItemService(CartItemService service) {
-        this.service = service;
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeNodes();
@@ -110,9 +91,38 @@ public class CashierFrontListController implements Initializable, DataChangeList
                 new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getTotalValue()
                 )));
 
-        setCartItemService(new CartItemService(DB.getConnection()));
+        setCartItemService(new CartItemService());
+
         updateTableView();
     }
+
+    public void updateTableView() {
+
+        if (service == null) {
+            throw new IllegalArgumentException("Service é nulo");
+        }
+
+        List<CartItem> list = service.findAll();
+
+        cartItemList = FXCollections.observableArrayList(list);
+        tableViewCart.setItems(cartItemList);
+    }
+
+
+    @FXML
+    public void onBtnOpenStockSearch() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/stockmanager/gui/stock-search.fxml"));
+        Pane pane = loader.load();
+
+        Stage stage = new Stage();
+
+        stage.setScene(new Scene(pane));
+        stage.setTitle("StockManager");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.setResizable(false);
+        stage.show();
+    }
+
 
     @FXML
     public void onBtnRemove() {
@@ -121,17 +131,11 @@ public class CashierFrontListController implements Initializable, DataChangeList
 
             Integer quantity = Integer.parseInt(txtQuantity.getText());
             Long productId = Long.parseLong(txtProductId.getText());
-            Product product = DaoFactory.createProduct().findById(productId);
-            service.updateRemoveQuantity(
-                    productId,
-                    product.getPrice(),
-                    quantity
-            );
 
-            ProductDao productDao = DaoFactory.createProduct();
-            productDao.updateSumQuantity(productId, quantity);
+            service.removeQuantityFromCart(productId, quantity);
 
             updateTableView();
+
             StockListController.instance.updateTableView();
 
         } catch (FieldRequiredNullException e) {
@@ -179,26 +183,12 @@ public class CashierFrontListController implements Initializable, DataChangeList
                 txtQuantity.getText() == null || txtQuantity.getText().isEmpty());
     }
 
-    public void updateTableView() {
-
-        if (service == null) {
-            throw new IllegalArgumentException("Service é nulo");
-        }
-        List<CartItem> list = service.findAll();
-
-        if (cartItemList == null) {
-            cartItemList = FXCollections.observableArrayList();
-            tableViewCart.setItems(cartItemList);
-        }
-
-        cartItemList.setAll(list);
-        tableViewCart.setItems(cartItemList);
-    }
-
     @Override
     public void onDataChanged() {
         updateTableView();
     }
 
-
+    public void setCartItemService(CartItemService service) {
+        this.service = service;
+    }
 }

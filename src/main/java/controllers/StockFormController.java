@@ -1,10 +1,8 @@
 package controllers;
 
-import db.DB;
 import db.DbException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -18,14 +16,13 @@ import exceptions.CaracterInvalidException;
 import exceptions.FieldRequiredNullException;
 import utils.Utils;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-public class StockFormController implements Initializable {
+public class StockFormController {
 
-    private final String errorFormTitle = "Erro no formulário.";
+
+    private static final String ERROR_FORM_TITLE = "Erro no formulário.";
 
     private Product product;
 
@@ -73,36 +70,8 @@ public class StockFormController implements Initializable {
                     CashierFrontListController.instance.updateTableView();
                 }
             } catch (DbException e) {
-                Alerts.showAlert(errorFormTitle, null, "Erro ao salvar o usuário", Alert.AlertType.ERROR);
+                Alerts.showAlert(ERROR_FORM_TITLE, null, "Erro ao salvar o usuário", Alert.AlertType.ERROR);
             }
-        }
-    }
-
-    private void notifyDataChangeListeners() {
-        for (DataChangeListener listener : dataChangeListeners) {
-            listener.onDataChanged();
-        }
-    }
-
-    public void setProduct(Product product) {
-        this.product = product;
-    }
-
-    public void setProductService(ProductService service) {
-        this.service = service;
-    }
-
-    public void subscribeDataChangeListener(DataChangeListener listener) {
-        dataChangeListeners.add(listener);
-    }
-
-
-    private void validateForm(String nameTxt, String quantityTxt, String priceTxt, String descriptionTxt) {
-        if (!checkNotNull(nameTxt, quantityTxt, priceTxt, descriptionTxt)) {
-            throw new FieldRequiredNullException();
-        }
-        if (!checkInvalidCaracter(quantityTxt, priceTxt)) {
-            throw new CaracterInvalidException();
         }
     }
 
@@ -126,16 +95,21 @@ public class StockFormController implements Initializable {
             );
 
         } catch (FieldRequiredNullException e) {
-            Alerts.showAlert(errorFormTitle, null, "Todos os campos devem estar preenchidos.", Alert.AlertType.ERROR);
+            Alerts.showAlert(ERROR_FORM_TITLE, null, "Todos os campos devem estar preenchidos.", Alert.AlertType.ERROR);
             return null;
         } catch (CaracterInvalidException e) {
-            Alerts.showAlert(errorFormTitle, null, "Campo de quantidade e preço não podem possuir letras ou caracteres inválidos.", Alert.AlertType.ERROR);
+            Alerts.showAlert(ERROR_FORM_TITLE, null, "Campo de quantidade e preço não podem possuir letras ou caracteres inválidos.", Alert.AlertType.ERROR);
             return null;
         }
     }
 
-    private String replaceComma(String priceTxt) {
-        return priceTxt.trim().replace(",", ".");
+    private void validateForm(String nameTxt, String quantityTxt, String priceTxt, String descriptionTxt) {
+        if (!checkNotNull(nameTxt, quantityTxt, priceTxt, descriptionTxt)) {
+            throw new FieldRequiredNullException();
+        }
+        if (!checkInvalidCaracter(quantityTxt, priceTxt)) {
+            throw new CaracterInvalidException();
+        }
     }
 
     private boolean checkNotNull(String nameTxt, String quantityTxt, String priceTxt, String descriptionTxt) {
@@ -169,13 +143,28 @@ public class StockFormController implements Initializable {
 
     }
 
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initializeNodes();
+    private String replaceComma(String priceTxt) {
+        return priceTxt.trim().replace(",", ".");
     }
 
-    private void initializeNodes() {
-        setProductService(new ProductService(DB.getConnection()));
+
+    private void notifyDataChangeListeners() {
+        for (DataChangeListener listener : dataChangeListeners) {
+            listener.onDataChanged();
+        }
     }
+
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public void setProductService(ProductService service) {
+        this.service = service;
+    }
+
+    public void subscribeDataChangeListener(DataChangeListener listener) {
+        dataChangeListeners.add(listener);
+    }
+
 }

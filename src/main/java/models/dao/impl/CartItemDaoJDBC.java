@@ -2,7 +2,6 @@ package models.dao.impl;
 
 import db.DB;
 import db.DbException;
-import exceptions.ResourceNotFoundException;
 import models.dao.CartItemDao;
 import models.entities.CartItem;
 
@@ -29,7 +28,7 @@ public class CartItemDaoJDBC implements CartItemDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            if (existsByProductId(st, rs, cartItem.getProductId())) {
+            if (existsByProductId(cartItem.getProductId())) {
                 st = conn.prepareStatement("UPDATE tb_cart " +
                         "SET quantity = quantity + ? " +
                         "WHERE product_id = ?");
@@ -64,6 +63,27 @@ public class CartItemDaoJDBC implements CartItemDao {
     }
 
     @Override
+    public CartItem findByProductId(Long productId) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT pt.id, pt.name, pt.price, ct.quantity, ct.total_value " +
+                    "FROM tb_cart ct " +
+                    "INNER JOIN tb_product pt " +
+                    "ON pt.id = ct.product_id" +
+                    "WHERE product_id = ?");
+            st.setLong(1, productId);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return instantiateCartItem(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        }
+    }
+
+    @Override
     public List<CartItem> findAll() {
         PreparedStatement st = null;
         ResultSet rs = null;
@@ -91,6 +111,24 @@ public class CartItemDaoJDBC implements CartItemDao {
     }
 
     @Override
+    public void update(CartItem cartItem) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("UPDATE tb_cart" +
+                    "SET quantity = ?, total_value = ?" +
+                    "WHERE id = ?");
+            st.setInt(1, cartItem.getQuantity());
+            st.setDouble(2, cartItem.getTotalValue());
+            st.setLong(3, cartItem.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
+    }
+
+    @Override
     public void deleteById(Long id) {
         PreparedStatement st = null;
         try {
@@ -106,17 +144,25 @@ public class CartItemDaoJDBC implements CartItemDao {
         }
     }
 
-
-    private boolean existsByProductId(PreparedStatement st, ResultSet rs, Long productId) throws SQLException {
-        st = conn.prepareStatement("SELECT COUNT(*) " +
-                "FROM tb_cart " +
-                "WHERE product_id = ?");
-        st.setLong(1, productId);
-        rs = st.executeQuery();
-        if (rs.next()) {
-            return rs.getInt(1) > 0;
+    public boolean existsByProductId(Long productId) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT COUNT(*) " +
+                    "FROM tb_cart " +
+                    "WHERE product_id = ?");
+            st.setLong(1, productId);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
         }
-        return false;
     }
 
     private CartItem instantiateCartItem(ResultSet rs) throws SQLException {

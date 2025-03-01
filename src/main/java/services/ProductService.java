@@ -2,16 +2,32 @@ package services;
 
 import db.DB;
 import db.DbException;
+import exceptions.ResourceNotFoundException;
+import javafx.scene.control.Alert;
 import models.dao.DaoFactory;
 import models.dao.ProductDao;
 import models.entities.Product;
+import utils.Alerts;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 public class ProductService {
 
     private ProductDao productDao = DaoFactory.createProduct();
+
+    public List<Product> findAll() {
+        return productDao.findAll();
+    }
+
+    public void deleteById(Long id) {
+        if (!productDao.existsById(id)) {
+            throw new ResourceNotFoundException("Produto não encontrado");
+        }
+        productDao.deleteById(id);
+    }
 
     public void saveOrUpdate(Product product) {
         if (product.getId() == null) {
@@ -22,18 +38,13 @@ public class ProductService {
     }
 
     public void updateSumQuantity(Long id, Integer quantity) {
-        PreparedStatement st = null;
-        try {
-            st = conn.prepareStatement("UPDATE tb_product " +
-                    "SET quantity = quantity + ? " +
-                    "WHERE id = ?");
-            st.setInt(1, quantity);
-            st.setLong(2, id);
-            st.executeUpdate();
-        } catch (SQLException e) {
-            throw new DbException(e.getMessage());
-        } finally {
-            DB.closeStatement(st);
+        Product product = productDao.findById(id);
+
+        if (product == null) {
+            throw new ResourceNotFoundException();
         }
+
+        product.setQuantity(product.getQuantity() + quantity);
+        productDao.update(product);
     }
 }

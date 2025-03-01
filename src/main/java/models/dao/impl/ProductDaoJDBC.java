@@ -128,6 +128,26 @@ public class ProductDaoJDBC implements ProductDao {
         }
     }
 
+    public boolean existsById(Long id) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("SELECT COUNT(*) " +
+                    "FROM tb_product " +
+                    "WHERE id = ?");
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt(1) > 0;
+            }
+            return false;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
     private Product instantiateProduct(ResultSet rs) throws SQLException {
         return new Product(rs.getLong("id"),
                 rs.getString("name"),

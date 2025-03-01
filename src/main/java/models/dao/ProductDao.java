@@ -16,4 +16,6 @@ public interface ProductDao {
 
     void update(Product product);
 
+    boolean existsById(Long id);
+
 }

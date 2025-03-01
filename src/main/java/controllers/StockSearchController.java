@@ -1,7 +1,6 @@
 package controllers;
 
 
-import db.DB;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,7 +15,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
-import models.entities.CartItem;
 import models.entities.Product;
 import services.ProductService;
 import utils.Alerts;
@@ -58,6 +56,58 @@ public class StockSearchController implements Initializable, DataChangeListener 
     private ObservableList<Product> productList;
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initializeNodes();
+    }
+
+    private void initializeNodes() {
+
+        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tableColumnPrice.setCellValueFactory(data ->
+                new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getPrice()
+                )));
+
+        setProductService(new ProductService());
+
+        updateTableView();
+
+        setupSearchListener();
+    }
+
+    private void updateTableView() {
+        if (service == null) {
+            throw new IllegalArgumentException("Service é nulo");
+        }
+
+        List<Product> list = service.findAll();
+        productList = FXCollections.observableArrayList(list);
+        tableViewStock.setItems(productList);
+
+        if (tableColumnADDCART != null) {
+            initAddCartButtons();
+        }
+    }
+
+    private void setupSearchListener() {
+        txtSearchProduct.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterProductList(newValue);
+        });
+    }
+
+    private void filterProductList(String searchQuery) {
+        ObservableList<Product> filteredList = FXCollections.observableArrayList();
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+        tableViewStock.setItems(filteredList);
+    }
+
     private void initAddCartButtons() {
 
         tableColumnADDCART.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
@@ -77,14 +127,14 @@ public class StockSearchController implements Initializable, DataChangeListener 
                     return;
                 }
                 setGraphic(button);
-                button.setOnAction(event -> createConfirmQuantityView(obj, "/org/example/stockmanager/gui/confirm-quantity.fxml", Utils.currentStage(event)));
+                button.setOnAction(event -> createConfirmQuantityView(obj, Utils.currentStage(event)));
             }
         });
     }
 
-    private void createConfirmQuantityView(Product obj, String nameUrl, Stage parentStage) {
+    private void createConfirmQuantityView(Product obj, Stage parentStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(nameUrl));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/stockmanager/gui/confirm-quantity.fxml"));
             Pane pane = loader.load();
 
             ConfirmQuantityController controller = loader.getController();
@@ -107,59 +157,6 @@ public class StockSearchController implements Initializable, DataChangeListener 
 
     public void setProductService(ProductService productService) {
         this.service = productService;
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        initializeNodes();
-    }
-
-    private void initializeNodes() {
-
-        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
-        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
-        tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
-        tableColumnPrice.setCellValueFactory(data ->
-                new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getPrice()
-                )));
-
-        setProductService(new ProductService(DB.getConnection()));
-        updateTableView();
-
-        setupSearchListener();
-    }
-
-    private void updateTableView() {
-        if (service == null) {
-            throw new IllegalArgumentException("Service é nulo");
-        }
-
-        List<Product> list = service.findAll();
-        productList = FXCollections.observableArrayList(list);
-        tableViewStock.setItems(productList);
-
-
-        if (tableColumnADDCART != null) {
-            initAddCartButtons();
-        }
-
-    }
-
-    private void setupSearchListener() {
-        txtSearchProduct.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterProductList(newValue);
-        });
-    }
-
-    private void filterProductList(String searchQuery) {
-        ObservableList<Product> filteredList = FXCollections.observableArrayList();
-        for (Product product : productList) {
-            if (product.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
-                filteredList.add(product);
-            }
-        }
-        tableViewStock.setItems(filteredList);
     }
 
 
