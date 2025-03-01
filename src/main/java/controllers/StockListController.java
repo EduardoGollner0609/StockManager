@@ -103,6 +103,7 @@ public class StockListController implements Initializable, DataChangeListener {
 
         productList = FXCollections.observableArrayList(list);
         tableViewStock.setItems(productList);
+        tableViewStock.refresh();
 
         if (tableColumnEDIT != null) {
             initEditButtons();

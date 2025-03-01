@@ -28,32 +28,18 @@ public class CartItemDaoJDBC implements CartItemDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            if (existsByProductId(cartItem.getProductId())) {
-                st = conn.prepareStatement("UPDATE tb_cart " +
-                        "SET quantity = quantity + ? " +
-                        "WHERE product_id = ?");
-                st.setInt(1, cartItem.getQuantity());
-                st.setLong(2, cartItem.getProductId());
+            st = conn.prepareStatement(
+                    "INSERT INTO tb_cart(quantity, total_value, product_id) " +
+                            "VALUES (?, ?, ?)");
 
-                int rowsAffected = st.executeUpdate();
+            st.setInt(1, cartItem.getQuantity());
+            st.setDouble(2, cartItem.getTotalValue());
+            st.setLong(3, cartItem.getProductId());
 
-                if (rowsAffected <= 0) {
-                    throw new DbException("Não foi possível inserir o produto!");
-                }
-            } else {
-                st = conn.prepareStatement(
-                        "INSERT INTO tb_cart(quantity, total_value, product_id) " +
-                                "VALUES (?, ?, ?)");
+            int rowsAffected = st.executeUpdate();
 
-                st.setInt(1, cartItem.getQuantity());
-                st.setDouble(2, cartItem.getTotalValue());
-                st.setLong(3, cartItem.getProductId());
-
-                int rowsAffected = st.executeUpdate();
-
-                if (rowsAffected <= 0) {
-                    throw new DbException("Não foi possível inserir o produto!");
-                }
+            if (rowsAffected <= 0) {
+                throw new DbException("Não foi possível inserir o produto!");
             }
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -70,8 +56,8 @@ public class CartItemDaoJDBC implements CartItemDao {
             st = conn.prepareStatement("SELECT pt.id, pt.name, pt.price, ct.quantity, ct.total_value " +
                     "FROM tb_cart ct " +
                     "INNER JOIN tb_product pt " +
-                    "ON pt.id = ct.product_id" +
-                    "WHERE product_id = ?");
+                    "ON pt.id = ct.product_id " +
+                    "WHERE pt.id = ?");
             st.setLong(1, productId);
             rs = st.executeQuery();
             if (rs.next()) {
@@ -114,12 +100,12 @@ public class CartItemDaoJDBC implements CartItemDao {
     public void update(CartItem cartItem) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("UPDATE tb_cart" +
-                    "SET quantity = ?, total_value = ?" +
-                    "WHERE id = ?");
+            st = conn.prepareStatement("UPDATE tb_cart " +
+                    "SET quantity = ?, total_value = ? " +
+                    "WHERE product_id = ?");
             st.setInt(1, cartItem.getQuantity());
             st.setDouble(2, cartItem.getTotalValue());
-            st.setLong(3, cartItem.getId());
+            st.setLong(3, cartItem.getProductId());
             st.executeUpdate();
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -129,12 +115,12 @@ public class CartItemDaoJDBC implements CartItemDao {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteByProductId(Long id) {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement(
                     "DELETE FROM tb_cart " +
-                            "WHERE id = ?");
+                            "WHERE product_id = ?");
             st.setLong(1, id);
             st.executeUpdate();
         } catch (SQLException e) {

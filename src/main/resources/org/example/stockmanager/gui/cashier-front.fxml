@@ -32,14 +32,14 @@
                         </ImageView>
                     </graphic>
                 </Button>
-                <Button alignment="CENTER" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" prefHeight="57.0" prefWidth="246.0" styleClass="button-side-navegation" text="Olhar Produtos">
+                <Button fx:id="btnReloadTable" alignment="CENTER" layoutX="10.0" layoutY="70.0" mnemonicParsing="false" onAction="#onBtnReloadTable" prefHeight="57.0" prefWidth="246.0" styleClass="button-side-navegation" text="Atualizar Tabela">
                     <font>
                         <Font size="18.0" />
                     </font>
                     <graphic>
                         <ImageView fitHeight="19.0" fitWidth="22.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@../imgs/search-icon.png" />
+                                <Image url="@../imgs/reload-icon.png" />
                             </image>
                         </ImageView>
                     </graphic>

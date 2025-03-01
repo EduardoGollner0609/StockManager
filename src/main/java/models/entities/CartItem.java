@@ -9,14 +9,20 @@ public class CartItem extends Product {
 
     }
 
+    public CartItem(Integer quantity, Long productId, Double totalValue) {
+        this.quantity = quantity;
+        this.productId = productId;
+        this.totalValue = totalValue;
+    }
+
     public CartItem(Long id, String name, String description, Integer quantity, Double price, Long productId, Double totalValue) {
         super(id, name, description, quantity, price);
         this.productId = productId;
         this.totalValue = totalValue;
     }
 
-    public CartItem(Long id, String name, Integer quantity, Double price, Double totalValue) {
-        this.id = id;
+    public CartItem(Long productId, String name, Integer quantity, Double price, Double totalValue) {
+        this.productId = productId;
         this.name = name;
         this.quantity = quantity;
         this.price = price;

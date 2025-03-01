@@ -1,17 +1,10 @@
 package services;
 
-import db.DB;
-import db.DbException;
 import exceptions.ResourceNotFoundException;
-import javafx.scene.control.Alert;
 import models.dao.DaoFactory;
 import models.dao.ProductDao;
 import models.entities.Product;
-import utils.Alerts;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 public class ProductService {
@@ -45,6 +38,23 @@ public class ProductService {
         }
 
         product.setQuantity(product.getQuantity() + quantity);
+        productDao.update(product);
+    }
+
+    public void updateRemoveQuantity(Long id, Integer quantity) {
+        Product product = productDao.findById(id);
+
+        if (product == null) {
+            throw new ResourceNotFoundException();
+        }
+
+        int newQuantity = product.getQuantity() - quantity;
+
+        if (newQuantity < 0) {
+            throw new IllegalArgumentException("Quantidade maior que a disponivel");
+        }
+
+        product.setQuantity(newQuantity);
         productDao.update(product);
     }
 }

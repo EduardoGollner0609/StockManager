@@ -15,7 +15,7 @@ public interface CartItemDao {
 
     void update(CartItem cartItem);
 
-    void deleteById(Long id);
+    void deleteByProductId(Long productId);
 
     boolean existsByProductId(Long productId);
 

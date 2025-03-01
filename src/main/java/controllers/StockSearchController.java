@@ -1,6 +1,5 @@
 package controllers;
 
-
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,6 +15,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
 import models.entities.Product;
+import services.CartItemService;
 import services.ProductService;
 import utils.Alerts;
 import utils.Utils;
@@ -140,6 +140,7 @@ public class StockSearchController implements Initializable, DataChangeListener 
             ConfirmQuantityController controller = loader.getController();
             controller.setProductAndTxtNameProduct(obj);
             controller.subscribeDataChangeListener(this);
+            controller.setCartItemService(new CartItemService(service));
 
             Stage stage = new Stage();
 

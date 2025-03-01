@@ -98,7 +98,7 @@ public class StockFormController {
             Alerts.showAlert(ERROR_FORM_TITLE, null, "Todos os campos devem estar preenchidos.", Alert.AlertType.ERROR);
             return null;
         } catch (CaracterInvalidException e) {
-            Alerts.showAlert(ERROR_FORM_TITLE, null, "Campo de quantidade e preço não podem possuir letras ou caracteres inválidos.", Alert.AlertType.ERROR);
+            Alerts.showAlert(ERROR_FORM_TITLE, null, "Os Campos de quantidade e preço não podem possuir letras, caracteres inválidos ou números menores que 0.", Alert.AlertType.ERROR);
             return null;
         }
     }
@@ -121,8 +121,12 @@ public class StockFormController {
 
     private boolean checkInvalidCaracter(String quantityTxt, String priceTxt) {
         try {
-            Integer.parseInt(quantityTxt);
-            Double.parseDouble(priceTxt);
+            if (Integer.parseInt(quantityTxt) < 0) {
+                return false;
+            }
+            if (Double.parseDouble(priceTxt) < 0) {
+                return false;
+            }
             return true;
         } catch (NumberFormatException e) {
             return false;

@@ -16,13 +16,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
-import models.dao.DaoFactory;
-import models.dao.ProductDao;
 import models.entities.CartItem;
-import models.entities.Product;
 import services.CartItemService;
+import services.ProductService;
 import utils.Alerts;
-
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,6 +32,8 @@ public class CashierFrontListController implements Initializable, DataChangeList
     public static CashierFrontListController instance;
 
     private CartItemService service;
+
+    private ObservableList<CartItem> cartItemList;
 
     @FXML
     private TextField txtProductId;
@@ -49,7 +48,7 @@ public class CashierFrontListController implements Initializable, DataChangeList
     private TableView<CartItem> tableViewCart;
 
     @FXML
-    private TableColumn<CartItem, Integer> tableColumnId;
+    private TableColumn<CartItem, Long> tableColumnId;
 
     @FXML
     private TableColumn<CartItem, String> tableColumnName;
@@ -66,10 +65,11 @@ public class CashierFrontListController implements Initializable, DataChangeList
     @FXML
     private TableColumn<CartItem, String> tableColumnTotalValue;
 
-    private ObservableList<CartItem> cartItemList;
-
     @FXML
     private Button btnOpenStockSearch;
+
+    @FXML
+    private Button btnReloadTable;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -80,7 +80,7 @@ public class CashierFrontListController implements Initializable, DataChangeList
 
         instance = this;
 
-        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("productId"));
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
         tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
@@ -91,7 +91,7 @@ public class CashierFrontListController implements Initializable, DataChangeList
                 new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getTotalValue()
                 )));
 
-        setCartItemService(new CartItemService());
+        setCartItemService(new CartItemService(new ProductService()));
 
         updateTableView();
     }
@@ -104,8 +104,11 @@ public class CashierFrontListController implements Initializable, DataChangeList
 
         List<CartItem> list = service.findAll();
 
+
         cartItemList = FXCollections.observableArrayList(list);
+
         tableViewCart.setItems(cartItemList);
+        tableViewCart.refresh();
     }
 
 
@@ -132,11 +135,13 @@ public class CashierFrontListController implements Initializable, DataChangeList
             Integer quantity = Integer.parseInt(txtQuantity.getText());
             Long productId = Long.parseLong(txtProductId.getText());
 
+
             service.removeQuantityFromCart(productId, quantity);
 
-            updateTableView();
 
             StockListController.instance.updateTableView();
+
+            updateTableView();
 
         } catch (FieldRequiredNullException e) {
             Alerts.showAlert(
@@ -148,7 +153,7 @@ public class CashierFrontListController implements Initializable, DataChangeList
             Alerts.showAlert(
                     "Erro ao remover quantidade",
                     null,
-                    "Os campos de código do produto e quantidade não podem receber letras ou caracteres especiais.",
+                    "Os Campos de quantidade e código do produto não podem possuir letras, caracteres inválidos, ou números abaixo de zero.",
                     Alert.AlertType.ERROR);
         } catch (ResourceNotFoundException e) {
             Alerts.showAlert(
@@ -159,19 +164,26 @@ public class CashierFrontListController implements Initializable, DataChangeList
         }
     }
 
+    @FXML
+    public void onBtnReloadTable() {
+        updateTableView();
+    }
+
     private void validateFormRemove() {
         if (!checkNotNull()) {
             throw new FieldRequiredNullException();
         }
-        if (!invalidCaracter()) {
+        if (!isValidCaracter()) {
             throw new CaracterInvalidException();
         }
     }
 
-    private boolean invalidCaracter() {
+    private boolean isValidCaracter() {
         try {
+            if (Integer.parseInt(txtQuantity.getText()) < 0) {
+                return false;
+            }
             Long.parseLong(txtProductId.getText());
-            Integer.parseInt(txtQuantity.getText());
             return true;
         } catch (NumberFormatException e) {
             return false;

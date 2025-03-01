@@ -135,6 +135,7 @@ public class ProductDaoJDBC implements ProductDao {
             st = conn.prepareStatement("SELECT COUNT(*) " +
                     "FROM tb_product " +
                     "WHERE id = ?");
+            st.setLong(1, id);
             rs = st.executeQuery();
             if (rs.next()) {
                 return rs.getInt(1) > 0;
