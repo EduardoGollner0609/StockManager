@@ -1,5 +1,6 @@
 package controllers;
 
+import db.DB;
 import db.DbException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -9,8 +10,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import listeners.DataChangeListener;
-import models.dao.DaoFactory;
-import models.dao.ProductDao;
 import models.entities.Product;
 import services.ProductService;
 import utils.Alerts;
@@ -64,9 +63,7 @@ public class StockFormController implements Initializable {
 
         if (product != null) {
             try {
-                ProductDao productDao = DaoFactory.createProduct();
-
-                productDao.saveOrUpdate(product);
+                service.saveOrUpdate(product);
 
                 Alerts.showAlert("Sucesso", null, "Salvo com sucesso", Alert.AlertType.INFORMATION);
                 notifyDataChangeListeners();
@@ -135,7 +132,6 @@ public class StockFormController implements Initializable {
             Alerts.showAlert(errorFormTitle, null, "Campo de quantidade e preço não podem possuir letras ou caracteres inválidos.", Alert.AlertType.ERROR);
             return null;
         }
-
     }
 
     private String replaceComma(String priceTxt) {
@@ -159,11 +155,6 @@ public class StockFormController implements Initializable {
         }
     }
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-
-    }
-
     public void updateFormData() {
 
         if (product == null) {
@@ -179,4 +170,12 @@ public class StockFormController implements Initializable {
     }
 
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initializeNodes();
+    }
+
+    private void initializeNodes() {
+        setProductService(new ProductService(DB.getConnection()));
+    }
 }

@@ -67,7 +67,6 @@ public class StockListController implements Initializable, DataChangeListener {
     private TableColumn<Product, Product> tableColumnREMOVE;
 
 
-
     @FXML
     private Button btnReloadTable;
 
@@ -186,12 +185,12 @@ public class StockListController implements Initializable, DataChangeListener {
             Pane pane = loader.load();
 
             StockFormController controller = loader.getController();
+            controller.setProductService(new ProductService(DB.getConnection()));
             controller.subscribeDataChangeListener(this);
             Stage dialogStage = new Stage();
 
             if (obj != null) {
                 controller.setProduct(obj);
-                controller.setProductService(new ProductService());
                 controller.updateFormData();
                 dialogStage.setTitle("StockManager - Atualizar Produto");
             } else {
@@ -245,7 +244,7 @@ public class StockListController implements Initializable, DataChangeListener {
                 service.deleteById(obj.getId());
                 updateTableView();
             } catch (DbIntegrityException e) {
-            Alerts.showAlert("Erro ao remover produto", null, "Esse produto está em seu carrinho de compras, por favor, descarte ele de lá", Alert.AlertType.ERROR);
+                Alerts.showAlert("Erro ao remover produto", null, "Esse produto está em seu carrinho de compras, por favor, descarte ele de lá", Alert.AlertType.ERROR);
             }
         }
     }

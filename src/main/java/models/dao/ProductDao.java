@@ -16,5 +16,4 @@ public interface ProductDao {
 
     void update(Product product);
 
-    void saveOrUpdate(Product product);
 }

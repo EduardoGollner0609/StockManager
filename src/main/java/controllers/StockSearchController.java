@@ -1,5 +1,6 @@
 package controllers;
 
+
 import db.DB;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
@@ -125,6 +126,8 @@ public class StockSearchController implements Initializable, DataChangeListener 
 
         setProductService(new ProductService(DB.getConnection()));
         updateTableView();
+
+        setupSearchListener();
     }
 
     private void updateTableView() {
@@ -142,6 +145,23 @@ public class StockSearchController implements Initializable, DataChangeListener 
         }
 
     }
+
+    private void setupSearchListener() {
+        txtSearchProduct.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterProductList(newValue);
+        });
+    }
+
+    private void filterProductList(String searchQuery) {
+        ObservableList<Product> filteredList = FXCollections.observableArrayList();
+        for (Product product : productList) {
+            if (product.getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredList.add(product);
+            }
+        }
+        tableViewStock.setItems(filteredList);
+    }
+
 
     @Override
     public void onDataChanged() {

@@ -1,18 +1,16 @@
 package models.dao;
 
 import db.DB;
-import services.CartItemService;
-import services.ProductService;
-
+import models.dao.impl.CartItemDaoJDBC;
+import models.dao.impl.ProductDaoJDBC;
 
 public class DaoFactory {
 
     public static ProductDao createProduct() {
-        return new ProductService(DB.getConnection());
+        return new ProductDaoJDBC(DB.getConnection());
     }
 
     public static CartItemDao createCartItem() {
-        return new CartItemService(DB.getConnection());
+        return new CartItemDaoJDBC(DB.getConnection());
     }
-
 }
