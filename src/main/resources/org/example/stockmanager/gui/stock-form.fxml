@@ -29,7 +29,7 @@
             <Font size="29.0" />
          </font>
       </Label>
-      <Button fx:id="btnCreateConfirm" layoutX="224.0" layoutY="319.0" mnemonicParsing="false" onAction="#onBtnCreateConfirm" prefHeight="35.0" prefWidth="153.0" styleClass="button-create" text="Criar Produto">
+      <Button fx:id="btnCreateConfirm" layoutX="215.0" layoutY="319.0" mnemonicParsing="false" onAction="#onBtnCreateConfirm" prefHeight="43.0" prefWidth="171.0" styleClass="button-create" text="Salvar Produto">
          <font>
             <Font size="18.0" />
          </font>
