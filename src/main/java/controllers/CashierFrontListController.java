@@ -121,16 +121,29 @@ public class CashierFrontListController implements Initializable, DataChangeList
     @FXML
     public void onBtnOpenStockSearch(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm(null, "/org/example/stockmanager/gui/stock-search.fxml", parentStage);
+        createDialogForm("Buscar Produtos", "/org/example/stockmanager/gui/stock-search.fxml", parentStage);
     }
 
-    private void createDialogForm(Product obj, String absoluteName, Stage parentStage) {
+    @FXML
+    public void onBtnConfirmPayment(ActionEvent event) {
+        Stage parentStage = Utils.currentStage(event);
+        createDialogForm("Confirmar Compra", "/org/example/stockmanager/gui/confirm-payment.fxml", parentStage);
+    }
+
+    private void createDialogForm(String title, String absoluteName, Stage parentStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
             Stage dialogStage = new Stage();
 
-            dialogStage.setTitle("Stock Manager - Buscar produtos");
+            Object controller = loader.getController();
+
+            if (controller instanceof ConfirmPaymentController) {
+                ((ConfirmPaymentController) controller).setCartItemList(cartItemList);
+                ((ConfirmPaymentController) controller).loadTableCartList();
+            }
+
+            dialogStage.setTitle("Stock Manager - " + title);
             dialogStage.setScene(new Scene(pane));
             dialogStage.setResizable(false);
             dialogStage.initOwner(parentStage);
@@ -209,13 +222,6 @@ public class CashierFrontListController implements Initializable, DataChangeList
         return !(txtProductId.getText() == null || txtProductId.getText().isEmpty() ||
                 txtQuantity.getText() == null || txtQuantity.getText().isEmpty());
     }
-
-    @FXML
-    public void onBtnConfirmPayment(ActionEvent event) {
-        Stage parentStage = Utils.currentStage(event);
-        createDialogForm(null, "/org/example/stockmanager/gui/confirm-payment.fxml", parentStage);
-    }
-
 
     @Override
     public void onDataChanged() {

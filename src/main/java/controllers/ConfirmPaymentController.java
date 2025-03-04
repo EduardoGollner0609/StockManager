@@ -1,15 +1,23 @@
 package controllers;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import models.entities.CartItem;
+import services.ProductService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ConfirmPaymentController implements Initializable {
+
+    private ProductService productService;
+
+    private ObservableList<CartItem> cartItemList;
 
     @FXML
     private TextField txtClientName;
@@ -30,7 +38,7 @@ public class ConfirmPaymentController implements Initializable {
     private RadioButton pixOption;
 
     @FXML
-    private Text totalValue;
+    private Text txtTotalValue;
 
     @FXML
     private Button btnCancelPayment;
@@ -66,6 +74,22 @@ public class ConfirmPaymentController implements Initializable {
 
     private void initializeNodes() {
 
+        tableColumnId.setCellValueFactory(new PropertyValueFactory<>("productId"));
+        tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
+        tableColumnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
+        tableColumnPrice.setCellValueFactory(data ->
+                new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getPrice()
+                )));
+        tableColumnTotalValue.setCellValueFactory(data ->
+                new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getTotalValue()
+                )));
+
+    }
+
+    public void loadTableCartList() {
+        tableViewCart.setItems(cartItemList);
+        txtTotalValue.setText(String.format("R$ %.2f", calculateTotalValue()));
     }
 
     @FXML
@@ -76,5 +100,17 @@ public class ConfirmPaymentController implements Initializable {
     @FXML
     public void onBtnConfirmPayment() {
         System.out.print("Confirmar compra");
+    }
+
+    public void setCartItemList(ObservableList<CartItem> cartItemList) {
+        this.cartItemList = cartItemList;
+    }
+
+    private Double calculateTotalValue() {
+        Double totalValue = 0.00;
+        for (CartItem cartItem : cartItemList) {
+            totalValue += cartItem.getTotalValue();
+        }
+        return totalValue;
     }
 }
