@@ -106,7 +106,9 @@ public class ConfirmPaymentController implements Initializable {
                     "Erro ao finalizar compra",
                     null, "Favor informar o nome, número do cliente e a forma de pagamento.",
                     Alert.AlertType.ERROR);
+            return;
         }
+
     }
 
 

@@ -1,5 +1,7 @@
 package models.entities;
 
+import java.util.Objects;
+
 public class CartItem extends Product {
 
     private Long productId;
@@ -52,5 +54,19 @@ public class CartItem extends Product {
 
     public void setProductId(Long productId) {
         this.productId = productId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        CartItem cartItem = (CartItem) o;
+        return Objects.equals(productId, cartItem.productId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), productId);
     }
 }
