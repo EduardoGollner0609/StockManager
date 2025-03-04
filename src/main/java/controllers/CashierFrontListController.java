@@ -6,6 +6,7 @@ import exceptions.ResourceNotFoundException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,9 +18,11 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import listeners.DataChangeListener;
 import models.entities.CartItem;
+import models.entities.Product;
 import services.CartItemService;
 import services.ProductService;
 import utils.Alerts;
+import utils.Utils;
 
 import java.io.IOException;
 import java.net.URL;
@@ -71,6 +74,9 @@ public class CashierFrontListController implements Initializable, DataChangeList
     @FXML
     private Button btnReloadTable;
 
+    @FXML
+    private Button btnOpenConfirmPayment;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeNodes();
@@ -113,17 +119,26 @@ public class CashierFrontListController implements Initializable, DataChangeList
 
 
     @FXML
-    public void onBtnOpenStockSearch() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/example/stockmanager/gui/stock-search.fxml"));
-        Pane pane = loader.load();
+    public void onBtnOpenStockSearch(ActionEvent event) {
+        Stage parentStage = Utils.currentStage(event);
+        createDialogForm(null, "/org/example/stockmanager/gui/stock-search.fxml", parentStage);
+    }
 
-        Stage stage = new Stage();
+    private void createDialogForm(Product obj, String absoluteName, Stage parentStage) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
+            Pane pane = loader.load();
+            Stage dialogStage = new Stage();
 
-        stage.setScene(new Scene(pane));
-        stage.setTitle("StockManager");
-        stage.initModality(Modality.WINDOW_MODAL);
-        stage.setResizable(false);
-        stage.show();
+            dialogStage.setTitle("Stock Manager - Buscar produtos");
+            dialogStage.setScene(new Scene(pane));
+            dialogStage.setResizable(false);
+            dialogStage.initOwner(parentStage);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.showAndWait();
+        } catch (IOException e) {
+            Alerts.showAlert("Erro na hora de carregar tela.", "Erro ao carregar tela. ", e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
 
@@ -194,6 +209,13 @@ public class CashierFrontListController implements Initializable, DataChangeList
         return !(txtProductId.getText() == null || txtProductId.getText().isEmpty() ||
                 txtQuantity.getText() == null || txtQuantity.getText().isEmpty());
     }
+
+    @FXML
+    public void onBtnConfirmPayment(ActionEvent event) {
+        Stage parentStage = Utils.currentStage(event);
+        createDialogForm(null, "/org/example/stockmanager/gui/confirm-payment.fxml", parentStage);
+    }
+
 
     @Override
     public void onDataChanged() {

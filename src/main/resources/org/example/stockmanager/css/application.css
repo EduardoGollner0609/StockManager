@@ -128,7 +128,6 @@
 }
 
 .text-field .text {
-    -fx-background-color: black;
     -fx-text-fill: white;
 }
 
@@ -146,4 +145,53 @@
     -fx-background-color: darkgray;
     -fx-text-fill: white;
 }
+.anchor-pane {
+-fx-background-color: #1E1E1E;
+}
 
+.txt {
+-fx-text-fill: #FFF;
+-fx-font-size: 22px;
+-fx-font-weight: bold;
+}
+
+
+.label {
+-fx-text-fill: #FFF;
+-fx-font-size: 18px;
+}
+
+.button-cancel {
+ -fx-background-color: #B22222;
+-fx-text-fill: white;
+-fx-font-weight: bold;
+-fx-cursor: hand;
+-fx-font-size: 14px;
+}
+
+.button-confirm {
+ -fx-background-color: #008000;
+-fx-text-fill: white;
+-fx-font-weight: bold;
+-fx-cursor: hand;
+-fx-font-size: 14px;
+}
+
+.radio-button {
+-fx-text-fill: #FFF;
+-fx-font-size: 14px;
+}
+
+
+.text-area {
+-fx-background-color: #1E1E1E;
+-fx-border-width: 2px;
+-fx-border-radius: 4px;
+-fx-border-color: #FFF;
+-fx-text-fill: FFF;
+-fx-font-size: 16px;
+}
+
+.text-area .content {
+    -fx-background-color: #1E1E1E;
+}

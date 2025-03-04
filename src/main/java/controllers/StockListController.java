@@ -131,7 +131,7 @@ public class StockListController implements Initializable, DataChangeListener {
         tableColumnEDIT.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         tableColumnEDIT.setCellFactory(param -> new TableCell<Product, Product>() {
 
-            private final Button button = new Button("edit");
+            private final Button button = new Button("Editar");
 
             {
                 button.setMaxWidth(Double.MAX_VALUE);
@@ -184,7 +184,7 @@ public class StockListController implements Initializable, DataChangeListener {
         tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
         tableColumnREMOVE.setCellFactory(param -> new TableCell<Product, Product>() {
 
-            private final Button button = new Button("remove");
+            private final Button button = new Button("Remover");
 
             {
                 button.setMaxWidth(Double.MAX_VALUE);
