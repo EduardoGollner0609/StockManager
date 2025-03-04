@@ -9,6 +9,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import models.entities.CartItem;
 import services.ProductService;
+import utils.Alerts;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -97,10 +98,17 @@ public class ConfirmPaymentController implements Initializable {
         System.out.print("Cancelar compra");
     }
 
+
     @FXML
     public void onBtnConfirmPayment() {
-        System.out.print("Confirmar compra");
+        if (formIsNull()) {
+            Alerts.showAlert(
+                    "Erro ao finalizar compra",
+                    null, "Favor informar o nome, número do cliente e a forma de pagamento.",
+                    Alert.AlertType.ERROR);
+        }
     }
+
 
     public void setCartItemList(ObservableList<CartItem> cartItemList) {
         this.cartItemList = cartItemList;
@@ -112,5 +120,13 @@ public class ConfirmPaymentController implements Initializable {
             totalValue += cartItem.getTotalValue();
         }
         return totalValue;
+    }
+
+    private boolean formIsNull() {
+        boolean paymentIsNull = !pixOption.isSelected() && !moneyOption.isSelected() && !cardOption.isSelected();
+        boolean clientFormIsNull = txtClientName.getText() == null || txtClientName.getText().trim().isEmpty() ||
+                txtClientPhone.getText() == null || txtClientPhone.getText().trim().isEmpty();
+        return paymentIsNull || clientFormIsNull;
+
     }
 }
