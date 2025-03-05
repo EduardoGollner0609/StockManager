@@ -83,7 +83,7 @@ public class HistorySalesController implements Initializable {
                 new SimpleStringProperty(cellData.getValue().getSale().getSaleDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
 
         tableColumnObservation.setCellValueFactory(cellData ->
-                new SimpleStringProperty(cellData.getValue().getObservation()));
+                new SimpleStringProperty(cellData.getValue().getSale().getObservation()));
 
         if (saleItemService == null) {
             setSaleItemService(new SaleItemService());

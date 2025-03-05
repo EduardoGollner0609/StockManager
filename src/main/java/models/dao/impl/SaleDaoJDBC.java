@@ -21,12 +21,13 @@ public class SaleDaoJDBC implements SaleDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "INSERT INTO tb_sale(client_id, sale_date, total_value, payment_method) " +
-                            "VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    "INSERT INTO tb_sale(client_id, sale_date, total_value, payment_method, observation) " +
+                            "VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             st.setLong(1, sale.getClient().getId());
             st.setTimestamp(2, java.sql.Timestamp.valueOf(sale.getSaleDate()));
             st.setDouble(3, sale.getTotalValue());
             st.setString(4, sale.getPaymentMethod());
+            st.setString(5, sale.getObservation());
 
             int rowsAffected = st.executeUpdate();
 

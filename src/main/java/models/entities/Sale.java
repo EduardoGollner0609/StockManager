@@ -12,17 +12,19 @@ public class Sale {
     private LocalDateTime saleDate;
     private Double totalValue;
     private String paymentMethod;
+    private String observation;
     private List<SaleItem> items = new ArrayList<>();
 
     public Sale() {
     }
 
-    public Sale(Long id, Client client, LocalDateTime saleDate, Double totalValue, String paymentMethod) {
+    public Sale(Long id, Client client, LocalDateTime saleDate, Double totalValue, String paymentMethod, String observation) {
         this.id = id;
         this.client = client;
         this.saleDate = saleDate;
         this.totalValue = totalValue;
         this.paymentMethod = paymentMethod;
+        this.observation = observation;
     }
 
     public Long getId() {
@@ -65,6 +67,14 @@ public class Sale {
         this.paymentMethod = paymentMethod;
     }
 
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
+    }
+
     public List<SaleItem> getItems() {
         return items;
     }
@@ -76,6 +86,7 @@ public class Sale {
     public void addItem(SaleItem item) {
         this.items.add(item);
     }
+
 
     @Override
     public boolean equals(Object o) {

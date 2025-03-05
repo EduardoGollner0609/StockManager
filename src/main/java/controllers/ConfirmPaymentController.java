@@ -124,6 +124,7 @@ public class ConfirmPaymentController implements Initializable {
 
         Client client = new Client(txtClientName.getText(), txtClientPhone.getText());
         Sale sale = new Sale();
+        sale.setObservation(txtObservation.getText());
         sale.setSaleDate(LocalDateTime.now());
         sale.setClient(client);
         sale.setTotalValue(calculateTotalValue());
