@@ -1,6 +1,5 @@
 package controllers;
 
-import exceptions.FieldRequiredNullException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -136,10 +135,7 @@ public class ConfirmPaymentController implements Initializable {
         }
 
         saleService.insert(sale);
-
-
     }
-
 
     public void setCartItemList(ObservableList<CartItem> cartItemList) {
         this.cartItemList = cartItemList;
@@ -175,7 +171,8 @@ public class ConfirmPaymentController implements Initializable {
         if (moneyOption.isSelected()) {
             return pixOption.getText();
         }
-        throw new FieldRequiredNullException();
+        Alerts.showAlert("Erro no fomrulário", null, "Selecione um meio de pagamento.", Alert.AlertType.ERROR);
+        return null;
     }
 
 }
