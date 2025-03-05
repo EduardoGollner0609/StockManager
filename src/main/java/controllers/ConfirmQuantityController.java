@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import models.entities.CartItem;
 import models.entities.Product;
 import services.CartItemService;
 import utils.Alerts;
@@ -14,6 +15,8 @@ import utils.Utils;
 public class ConfirmQuantityController {
 
     private Product product;
+
+    private CartItem cartItem;
 
     private CartItemService cartItemService;
 
@@ -36,13 +39,33 @@ public class ConfirmQuantityController {
             return;
         }
 
-        if (product == null) {
+        if (product != null) {
+            addProductFromCart(quantity, event);
             return;
         }
 
-        addProductFromCart(quantity, event);
+        if (cartItem != null) {
+            removeProductFromCart(quantity, event);
+        }
+
+
     }
 
+    private void removeProductFromCart(Integer quantity, ActionEvent event) {
+        if (quantity > cartItem.getQuantity()) {
+            Alerts.showAlert("Erro ao remover do carrinho", null, "A quantidade exigida é maior que a disponível no carrinho.", Alert.AlertType.ERROR);
+        } else {
+            cartItemService.removeQuantityFromCart(cartItem.getProductId(), quantity);
+
+            CashierFrontListController.instance.updateTableView();
+
+            StockListController.instance.updateTableView();
+
+            Alerts.showAlert("Sucesso", null, "Removido do carrinho com sucesso! a quantidade de " + quantity, Alert.AlertType.CONFIRMATION);
+
+            Utils.currentStage(event).close();
+        }
+    }
 
     private void addProductFromCart(Integer quantity, ActionEvent event) {
 
@@ -88,5 +111,9 @@ public class ConfirmQuantityController {
 
     public void setCartItemService(CartItemService service) {
         this.cartItemService = service;
+    }
+
+    public void setCartItem(CartItem cartItem) {
+        this.cartItem = cartItem;
     }
 }

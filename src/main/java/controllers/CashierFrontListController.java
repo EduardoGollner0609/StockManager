@@ -3,6 +3,7 @@ package controllers;
 import exceptions.CaracterInvalidException;
 import exceptions.FieldRequiredNullException;
 import exceptions.ResourceNotFoundException;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.entities.CartItem;
+import models.entities.Product;
 import services.CartItemService;
 import services.ProductService;
 import utils.Alerts;
@@ -67,6 +69,9 @@ public class CashierFrontListController implements Initializable {
     private TableColumn<CartItem, String> tableColumnTotalValue;
 
     @FXML
+    private TableColumn<CartItem, CartItem> tableColumnREMOVE;
+
+    @FXML
     private Button btnOpenStockSearch;
 
     @FXML
@@ -97,6 +102,8 @@ public class CashierFrontListController implements Initializable {
 
         setCartItemService(new CartItemService(new ProductService()));
 
+        initRemoveButtons();
+
         updateTableView();
     }
 
@@ -119,20 +126,26 @@ public class CashierFrontListController implements Initializable {
     @FXML
     public void onBtnOpenStockSearch(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("Buscar Produtos", "/org/example/stockmanager/gui/stock-search.fxml", parentStage);
+        createDialogForm(null, "Buscar Produtos", "/org/example/stockmanager/gui/stock-search.fxml", parentStage);
     }
 
     @FXML
     public void onBtnConfirmPayment(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        createDialogForm("Confirmar Compra", "/org/example/stockmanager/gui/confirm-payment.fxml", parentStage);
+        createDialogForm(null, "Confirmar Compra", "/org/example/stockmanager/gui/confirm-payment.fxml", parentStage);
     }
 
-    private void createDialogForm(String title, String absoluteName, Stage parentStage) {
+    private void createDialogForm(CartItem obj, String title, String absoluteName, Stage parentStage) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
             Pane pane = loader.load();
             Stage dialogStage = new Stage();
+
+            if (obj != null) {
+                ConfirmQuantityController controller = loader.getController();
+                controller.setCartItem(obj);
+                controller.setCartItemService(new CartItemService(new ProductService()));
+            }
 
             Object controller = loader.getController();
 
@@ -223,5 +236,30 @@ public class CashierFrontListController implements Initializable {
 
     public void setCartItemService(CartItemService service) {
         this.service = service;
+    }
+
+
+    private void initRemoveButtons() {
+        tableColumnREMOVE.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        tableColumnREMOVE.setCellFactory(param -> new TableCell<CartItem, CartItem>() {
+
+            private final Button button = new Button("Remover");
+
+            {
+                button.setMaxWidth(Double.MAX_VALUE);
+            }
+
+            @Override
+            protected void updateItem(CartItem obj, boolean empty) {
+                super.updateItem(obj, empty);
+                if (obj == null) {
+                    setGraphic(null);
+                    return;
+                }
+                setGraphic(button);
+                button.setOnAction(
+                        event -> createDialogForm(obj, "Remover Quantidade", "/org/example/stockmanager/gui/confirm-quantity.fxml", Utils.currentStage(event)));
+            }
+        });
     }
 }

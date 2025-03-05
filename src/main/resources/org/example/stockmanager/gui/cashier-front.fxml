@@ -54,6 +54,7 @@
                 <TableColumn fx:id="tableColumnQuantity" minWidth="0.0" prefWidth="127.20001220703125" text="Quantidade" />
                 <TableColumn fx:id="tableColumnPrice" prefWidth="112.79998779296875" text="Preço" />
             <TableColumn fx:id="tableColumnTotalValue" prefWidth="112.79998779296875" text="Valor Total" />
+            <TableColumn fx:id="tableColumnREMOVE" prefWidth="99.0" />
             </columns>
         </TableView>
         <TextField fx:id="txtProductId" layoutX="683.0" layoutY="57.0" prefHeight="35.0" prefWidth="221.0" AnchorPane.rightAnchor="245.0" />
