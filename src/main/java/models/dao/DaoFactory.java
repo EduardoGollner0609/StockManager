@@ -1,9 +1,7 @@
 package models.dao;
 
 import db.DB;
-import models.dao.impl.CartItemDaoJDBC;
-import models.dao.impl.ClientDaoJDBC;
-import models.dao.impl.ProductDaoJDBC;
+import models.dao.impl.*;
 
 public class DaoFactory {
 
@@ -17,6 +15,14 @@ public class DaoFactory {
 
     public static ClientDao createClient() {
         return new ClientDaoJDBC(DB.getConnection());
+    }
+
+    public static SaleDao createSale() {
+        return new SaleDaoJDBC(DB.getConnection());
+    }
+
+    public static SaleItemDao createSaleItem() {
+        return new SaleItemDaoJDBC(DB.getConnection());
     }
 
 }

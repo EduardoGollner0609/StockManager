@@ -8,7 +8,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import models.entities.CartItem;
+import models.entities.Client;
+import models.entities.Sale;
+import services.ClientService;
 import services.ProductService;
+import services.SaleService;
 import utils.Alerts;
 
 import java.net.URL;
@@ -19,6 +23,8 @@ public class ConfirmPaymentController implements Initializable {
     private ProductService productService;
 
     private ObservableList<CartItem> cartItemList;
+
+    private SaleService saleService;
 
     @FXML
     private TextField txtClientName;
@@ -109,6 +115,12 @@ public class ConfirmPaymentController implements Initializable {
             return;
         }
 
+        Client client = new Client(txtClientName.getText(), txtClientPhone.getText());
+        Sale sale = new Sale();
+        sale.setClient(client);
+        saleService.insert(sale);
+
+
     }
 
 
@@ -131,4 +143,9 @@ public class ConfirmPaymentController implements Initializable {
         return paymentIsNull || clientFormIsNull;
 
     }
+
+    public void setSaleService(SaleService saleService) {
+        this.saleService = saleService;
+    }
+
 }
