@@ -7,7 +7,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import listeners.DataChangeListener;
 import models.entities.Product;
 import services.ProductService;
 import utils.Alerts;
@@ -15,9 +14,6 @@ import utils.Alerts;
 import exceptions.CaracterInvalidException;
 import exceptions.FieldRequiredNullException;
 import utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class StockFormController {
 
@@ -27,8 +23,6 @@ public class StockFormController {
     private Product product;
 
     private ProductService service;
-
-    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     private Long productId;
 
@@ -63,7 +57,9 @@ public class StockFormController {
                 service.saveOrUpdate(product);
 
                 Alerts.showAlert("Sucesso", null, "Salvo com sucesso", Alert.AlertType.INFORMATION);
-                notifyDataChangeListeners();
+
+                StockListController.instance.updateTableView();
+
                 Utils.currentStage(event).close();
 
                 if (product.getId() != null) {
@@ -151,24 +147,12 @@ public class StockFormController {
         return priceTxt.trim().replace(",", ".");
     }
 
-
-    private void notifyDataChangeListeners() {
-        for (DataChangeListener listener : dataChangeListeners) {
-            listener.onDataChanged();
-        }
-    }
-
-
     public void setProduct(Product product) {
         this.product = product;
     }
 
     public void setProductService(ProductService service) {
         this.service = service;
-    }
-
-    public void subscribeDataChangeListener(DataChangeListener listener) {
-        dataChangeListeners.add(listener);
     }
 
 }

@@ -6,14 +6,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
-import listeners.DataChangeListener;
 import models.entities.Product;
 import services.CartItemService;
 import utils.Alerts;
 import utils.Utils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ConfirmQuantityController {
 
@@ -23,8 +19,6 @@ public class ConfirmQuantityController {
 
     @FXML
     private Text txtProductName;
-
-    private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
 
     @FXML
     private TextField txtQuantity;
@@ -57,17 +51,13 @@ public class ConfirmQuantityController {
         } else {
 
 
-                cartItemService.addQuantityFromCart(product, quantity);
+            cartItemService.addQuantityFromCart(product, quantity);
 
-            if (CashierFrontListController.instance != null) {
-                CashierFrontListController.instance.updateTableView();
-            }
+            CashierFrontListController.instance.updateTableView();
 
-            if (StockListController.instance != null) {
-                StockListController.instance.updateTableView();
-            }
+            StockListController.instance.updateTableView();
 
-            notifyDataChangeListeners();
+            StockSearchController.instance.updateTableView();
 
             Alerts.showAlert("Sucesso", null, "Adicionado ao carrinho com sucesso!", Alert.AlertType.CONFIRMATION);
             Utils.currentStage(event).close();
@@ -89,16 +79,6 @@ public class ConfirmQuantityController {
         } catch (NumberFormatException e) {
             return null;
         }
-    }
-
-    private void notifyDataChangeListeners() {
-        for (DataChangeListener listener : dataChangeListeners) {
-            listener.onDataChanged();
-        }
-    }
-
-    public void subscribeDataChangeListener(DataChangeListener listener) {
-        dataChangeListeners.add(listener);
     }
 
     public void setProductAndTxtNameProduct(Product product) {

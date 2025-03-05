@@ -16,9 +16,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import listeners.DataChangeListener;
 import models.entities.CartItem;
-import models.entities.Product;
 import services.CartItemService;
 import services.ProductService;
 import utils.Alerts;
@@ -29,7 +27,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class CashierFrontListController implements Initializable, DataChangeListener {
+public class CashierFrontListController implements Initializable {
 
 
     public static CashierFrontListController instance;
@@ -221,11 +219,6 @@ public class CashierFrontListController implements Initializable, DataChangeList
     private boolean checkNotNull() {
         return !(txtProductId.getText() == null || txtProductId.getText().isEmpty() ||
                 txtQuantity.getText() == null || txtQuantity.getText().isEmpty());
-    }
-
-    @Override
-    public void onDataChanged() {
-        updateTableView();
     }
 
     public void setCartItemService(CartItemService service) {

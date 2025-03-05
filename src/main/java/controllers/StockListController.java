@@ -15,7 +15,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import listeners.DataChangeListener;
 import models.entities.Product;
 import services.ProductService;
 import utils.Alerts;
@@ -27,7 +26,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class StockListController implements Initializable, DataChangeListener {
+public class StockListController implements Initializable {
 
     public static StockListController instance;
 
@@ -158,7 +157,6 @@ public class StockListController implements Initializable, DataChangeListener {
 
             StockFormController controller = loader.getController();
             controller.setProductService(service);
-            controller.subscribeDataChangeListener(this);
             Stage dialogStage = new Stage();
 
             if (obj != null) {
@@ -238,11 +236,6 @@ public class StockListController implements Initializable, DataChangeListener {
 
     public void setProductService(ProductService service) {
         this.service = service;
-    }
-
-    @Override
-    public void onDataChanged() {
-        updateTableView();
     }
 
 }

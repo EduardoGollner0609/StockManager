@@ -13,7 +13,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import listeners.DataChangeListener;
 import models.entities.Product;
 import services.CartItemService;
 import services.ProductService;
@@ -25,7 +24,9 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class StockSearchController implements Initializable, DataChangeListener {
+public class StockSearchController implements Initializable {
+
+    public static StockSearchController instance;
 
     private ProductService service;
 
@@ -63,6 +64,8 @@ public class StockSearchController implements Initializable, DataChangeListener 
 
     private void initializeNodes() {
 
+        instance = this;
+
         tableColumnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         tableColumnName.setCellValueFactory(new PropertyValueFactory<>("name"));
         tableColumnDescription.setCellValueFactory(new PropertyValueFactory<>("description"));
@@ -78,7 +81,7 @@ public class StockSearchController implements Initializable, DataChangeListener 
         setupSearchListener();
     }
 
-    private void updateTableView() {
+    public void updateTableView() {
         if (service == null) {
             throw new IllegalArgumentException("Service é nulo");
         }
@@ -139,7 +142,6 @@ public class StockSearchController implements Initializable, DataChangeListener 
 
             ConfirmQuantityController controller = loader.getController();
             controller.setProductAndTxtNameProduct(obj);
-            controller.subscribeDataChangeListener(this);
             controller.setCartItemService(new CartItemService(service));
 
             Stage stage = new Stage();
@@ -158,11 +160,5 @@ public class StockSearchController implements Initializable, DataChangeListener 
 
     public void setProductService(ProductService productService) {
         this.service = productService;
-    }
-
-
-    @Override
-    public void onDataChanged() {
-        updateTableView();
     }
 }
