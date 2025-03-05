@@ -41,7 +41,6 @@ public class HistorySalesController implements Initializable {
     @FXML
     private TableColumn<SaleItem, String> tableColumnTotalValue;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeNodes();
@@ -53,7 +52,7 @@ public class HistorySalesController implements Initializable {
             setSaleItemService(new SaleItemService());
         }
 
-        
+
     }
 
     public void setSaleItemService(SaleItemService saleItemService) {
