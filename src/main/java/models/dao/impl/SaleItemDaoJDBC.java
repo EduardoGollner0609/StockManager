@@ -63,9 +63,9 @@ public class SaleItemDaoJDBC implements SaleItemDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "SELECT si.id, si.observation, si.quantity, si.price, si.total_value, si.product_id, si.sale_id, " +
+                    "SELECT si.id, si.quantity, si.price, si.total_value, si.product_id, si.sale_id, " +
                             "pt.name AS product_name, pt.description, " +
-                            "sl.client_id, sl.sale_date, sl.total_value AS sale_total_value, sl.payment_method, sl.observation " +
+                            "sl.client_id, sl.sale_date, sl.total_value AS sale_total_value, sl.payment_method, sl.observation, " +
                             "cl.name AS client_name, cl.phone " +
                             "FROM tb_sale_item si " +
                             "INNER JOIN tb_product pt ON pt.id = si.product_id " +
