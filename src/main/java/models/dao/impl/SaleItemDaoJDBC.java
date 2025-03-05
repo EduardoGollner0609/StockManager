@@ -63,15 +63,24 @@ public class SaleItemDaoJDBC implements SaleItemDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT *");
-
+            st = conn.prepareStatement(
+                    "SELECT si.id, si.observation, si.quantity, si.price, si.total_value, si.product_id, si.sale_id, " +
+                            "pt.name AS product_name, pt.description, " +
+                            "sl.client_id, sl.sale_date, sl.total_value AS sale_total_value, sl.payment_method, " +
+                            "cl.name AS client_name, cl.phone " +
+                            "FROM tb_sale_item si " +
+                            "INNER JOIN tb_product pt ON pt.id = si.product_id " +
+                            "INNER JOIN tb_sale sl ON sl.id = si.sale_id " +
+                            "INNER JOIN tb_client cl ON cl.id = sl.client_id");
             rs = st.executeQuery();
 
             List<SaleItem> items = new ArrayList<>();
 
             while (rs.next()) {
-                items.add(new SaleItem());
+                items.add(instantiateSaleItem(rs));
             }
+
+            return items;
 
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
