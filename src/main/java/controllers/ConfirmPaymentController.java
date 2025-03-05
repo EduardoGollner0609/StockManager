@@ -18,6 +18,8 @@ import utils.Utils;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ConfirmPaymentController implements Initializable {
@@ -114,36 +116,35 @@ public class ConfirmPaymentController implements Initializable {
     @FXML
     public void onBtnConfirmPayment(ActionEvent event) {
 
-        if (formIsNull()) {
-            Alerts.showAlert(
-                    "Erro ao finalizar compra",
-                    null, "Favor informar o nome, número do cliente e a forma de pagamento.",
-                    Alert.AlertType.ERROR);
-            return;
+        String paymentMethod = getPaymentMethod();
+
+        Client client = instantiateClient();
+
+        if (client != null && paymentMethod != null) {
+            Sale sale = instantiateSale(client, paymentMethod);
+            fillingSaleItems(sale);
+            saleService.insert(sale);
+
+            CashierFrontListController.instance.updateTableView();
+
+            HistorySalesController.instance.updateTableView();
+
+            Utils.currentStage(event).close();
+        }
+    }
+
+    private Client instantiateClient() {
+        boolean clientFormIsValid = !(txtClientName.getText() == null || txtClientName.getText().isEmpty() || txtClientPhone == null || txtClientPhone.getText().isEmpty());
+
+        if (clientFormIsValid) {
+            return new Client(txtClientName.getText(), txtClientPhone.getText());
         }
 
-        Client client = new Client(txtClientName.getText(), txtClientPhone.getText());
-        Sale sale = new Sale();
-        sale.setObservation(txtObservation.getText());
-        sale.setSaleDate(LocalDateTime.now());
-        sale.setClient(client);
-        sale.setTotalValue(calculateTotalValue());
-
-        sale.setPaymentMethod(getPaymentMethod());
-
-        for (CartItem cartItem : cartItemList) {
-            SaleItem item = new SaleItem(cartItem);
-            item.setSale(sale);
-            sale.addItem(item);
-        }
-
-        saleService.insert(sale);
-
-
-        CashierFrontListController.instance.updateTableView();
-        HistorySalesController.instance.updateTableView();
-
-        Utils.currentStage(event).close();
+        Alerts.showAlert(
+                "Erro ao finalizar compra",
+                null, "Favor informar o nome, número do cliente e a forma de pagamento.",
+                Alert.AlertType.ERROR);
+        return null;
 
     }
 
@@ -159,30 +160,46 @@ public class ConfirmPaymentController implements Initializable {
         return totalValue;
     }
 
-    private boolean formIsNull() {
-        boolean paymentIsNull = !pixOption.isSelected() && !moneyOption.isSelected() && !cardOption.isSelected();
-        boolean clientFormIsNull = txtClientName.getText() == null || txtClientName.getText().trim().isEmpty() ||
-                txtClientPhone.getText() == null || txtClientPhone.getText().trim().isEmpty();
-        return paymentIsNull || clientFormIsNull;
-
-    }
-
     public void setSaleService(SaleService saleService) {
         this.saleService = saleService;
     }
 
+    private void fillingSaleItems(Sale sale) {
+        for (CartItem cartItem : cartItemList) {
+            SaleItem item = new SaleItem(cartItem);
+            item.setSale(sale);
+            sale.addItem(item);
+        }
+    }
+
     private String getPaymentMethod() {
+        List<String> options = new ArrayList<>();
+
         if (pixOption.isSelected()) {
-            return pixOption.getText();
+            options.add(pixOption.getText());
         }
         if (cardOption.isSelected()) {
-            return pixOption.getText();
+            options.add(cardOption.getText());
         }
         if (moneyOption.isSelected()) {
-            return pixOption.getText();
+            options.add(moneyOption.getText());
         }
-        Alerts.showAlert("Erro no fomrulário", null, "Selecione um meio de pagamento.", Alert.AlertType.ERROR);
-        return null;
+
+        if (options.size() != 1) {
+            return null;
+        }
+
+        return options.getFirst();
+    }
+
+    private Sale instantiateSale(Client client, String paymentMethod) {
+        return new Sale(
+                client,
+                LocalDateTime.now(),
+                calculateTotalValue(),
+                paymentMethod,
+                txtObservation.getText()
+        );
     }
 
 }

@@ -9,7 +9,14 @@ public class ClientService {
     private ClientDao clientDao = DaoFactory.createClient();
 
     public void insert(Client client) {
-        clientDao.insert(client);
+
+        Client obj = clientDao.findByName(client.getName());
+
+        if (obj == null) {
+            clientDao.insert(client);
+        } else {
+            client.setId(obj.getId());
+        }
     }
 
 }

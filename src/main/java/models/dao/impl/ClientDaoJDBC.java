@@ -16,7 +16,7 @@ public class ClientDaoJDBC implements ClientDao {
     }
 
     @Override
-    public Client insert(Client client) {
+    public void insert(Client client) {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
@@ -38,12 +38,42 @@ public class ClientDaoJDBC implements ClientDao {
             } else {
                 throw new DbException("Erro ao inserir cliente");
             }
-            return client;
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
             DB.closeStatement(st);
             DB.closeResultSet(rs);
         }
+    }
+
+    @Override
+    public Client findByName(String name) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement(
+                    "SELECT * " +
+                            "FROM tb_client " +
+                            "WHERE name = ?");
+            st.setString(1, name);
+            rs = st.executeQuery();
+            if (rs.next()) {
+                return instantiateClient(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
+    private Client instantiateClient(ResultSet rs) throws SQLException {
+        return new Client(
+                rs.getLong("id"),
+                rs.getString("name"),
+                rs.getString("phone")
+        );
     }
 }

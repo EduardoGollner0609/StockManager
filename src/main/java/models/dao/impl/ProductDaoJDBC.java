@@ -42,7 +42,6 @@ public class ProductDaoJDBC implements ProductDao {
             throw new DbException(e.getMessage());
         } finally {
             DB.closeStatement(st);
-
         }
     }
 

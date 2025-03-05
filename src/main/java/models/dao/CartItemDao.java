@@ -1,7 +1,6 @@
 package models.dao;
 
 import models.entities.CartItem;
-import models.entities.Product;
 
 import java.util.List;
 
@@ -18,8 +17,5 @@ public interface CartItemDao {
     void deleteByProductId(Long productId);
 
     void deleteAllByProductsIds(List<Long> productsIds);
-
-    boolean existsByProductId(Long productId);
-
 
 }

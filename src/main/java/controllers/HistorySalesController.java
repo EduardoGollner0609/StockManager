@@ -8,6 +8,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import models.entities.Product;
 import models.entities.SaleItem;
 import services.SaleItemService;
 
@@ -51,6 +53,8 @@ public class HistorySalesController implements Initializable {
     @FXML
     private TableColumn<SaleItem, String> tableColumnObservation;
 
+    @FXML
+    private TextField txtSearchClientName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -91,6 +95,25 @@ public class HistorySalesController implements Initializable {
 
         updateTableView();
 
+        setupSearchListener();
+
+
+    }
+
+    private void setupSearchListener() {
+        txtSearchClientName.textProperty().addListener((observable, oldValue, newValue) -> {
+            filterProductList(newValue);
+        });
+    }
+
+    private void filterProductList(String searchQuery) {
+        ObservableList<SaleItem> filteredList = FXCollections.observableArrayList();
+        for (SaleItem saleItem : saleItemsList) {
+            if (saleItem.getSale().getClient().getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                filteredList.add(saleItem);
+            }
+        }
+        tableViewSalesItems.setItems(filteredList);
     }
 
     public void updateTableView() {

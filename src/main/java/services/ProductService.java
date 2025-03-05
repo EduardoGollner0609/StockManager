@@ -31,6 +31,7 @@ public class ProductService {
     }
 
     public void updateSumQuantity(Long id, Integer quantity) {
+
         Product product = productDao.findById(id);
 
         if (product == null) {

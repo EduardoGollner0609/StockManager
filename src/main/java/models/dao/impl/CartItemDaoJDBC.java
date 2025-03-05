@@ -17,9 +17,6 @@ public class CartItemDaoJDBC implements CartItemDao {
 
     private Connection conn;
 
-    public CartItemDaoJDBC() {
-    }
-
     public CartItemDaoJDBC(Connection conn) {
         this.conn = conn;
     }
@@ -152,27 +149,6 @@ public class CartItemDaoJDBC implements CartItemDao {
             throw new DbException(e.getMessage());
         } finally {
             DB.closeStatement(st);
-        }
-    }
-
-    public boolean existsByProductId(Long productId) {
-        PreparedStatement st = null;
-        ResultSet rs = null;
-        try {
-            st = conn.prepareStatement("SELECT COUNT(*) " +
-                    "FROM tb_cart " +
-                    "WHERE product_id = ?");
-            st.setLong(1, productId);
-            rs = st.executeQuery();
-            if (rs.next()) {
-                return rs.getInt(1) > 0;
-            }
-            return false;
-        } catch (SQLException e) {
-            throw new DbException(e.getMessage());
-        } finally {
-            DB.closeStatement(st);
-            DB.closeResultSet(rs);
         }
     }
 

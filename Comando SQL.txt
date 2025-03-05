@@ -1,24 +1,43 @@
+CREATE TABLE tb_client(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100) NOT NULL UNIQUE,
+phone VARCHAR(40)
+);
+
 CREATE TABLE tb_product(
-id INT PRIMARY KEY NOT NULL,
+id INT AUTO_INCREMENT PRIMARY KEY,
 name VARCHAR(100),
 description TEXT,
 quantity INT,
 price DOUBLE
 );
 
-CREATE TABLE tb_client(
+CREATE TABLE tb_cart(
 id INT AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(100),
-phone VARCHAR(50)
+quantity INT,
+total_value DOUBLE,
+product_id INT,
+FOREIGN KEY (product_id) REFERENCES tb_product(id)
 );
 
-CREATE TABLE tb_order(
-id INT AUTO_INCREMENT PRIMARY KEY,
-moment TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE tb_sale (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT,
+    sale_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    total_value DOUBLE,
+    payment_method VARCHAR(15),
+    observation TEXT,
+    FOREIGN KEY (client_id) REFERENCES tb_client(id)
 );
 
-ALTER TABLE tb_order ADD COLUMN client_id INT NOT NULL, 
-ADD CONSTRAINT fk_order_client FOREIGN KEY(client_id) REFERENCES tb_client(id);
+CREATE TABLE tb_sale_item (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    sale_id INT,
+    product_id INT,
+    quantity INT,
+    price DOUBLE,
+    total_value DOUBLE,
+    FOREIGN KEY (sale_id) REFERENCES tb_sale(id),
+    FOREIGN KEY (product_id) REFERENCES tb_product(id)
+);
 
-ALTER TABLE tb_order ADD COLUMN product_id INT NOT NULL,
-ADD CONSTRAINT fk_order_product FOREIGN KEY(product_id) REFERENCES tb_product(id);

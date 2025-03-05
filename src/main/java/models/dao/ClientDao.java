@@ -4,6 +4,8 @@ import models.entities.Client;
 
 public interface ClientDao {
 
-    Client insert(Client client);
+    void insert(Client client);
+
+    Client findByName(String name);
 
 }

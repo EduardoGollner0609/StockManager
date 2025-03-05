@@ -27,6 +27,14 @@ public class Sale {
         this.observation = observation;
     }
 
+    public Sale(Client client, LocalDateTime saleDate, Double totalValue, String paymentMethod, String observation) {
+        this.client = client;
+        this.saleDate = saleDate;
+        this.totalValue = totalValue;
+        this.paymentMethod = paymentMethod;
+        this.observation = observation;
+    }
+
     public Long getId() {
         return id;
     }

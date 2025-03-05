@@ -25,7 +25,9 @@ public class SaleService {
     }
 
     public void insert(Sale sale) {
+
         clientService.insert(sale.getClient());
+
         sale = saleDao.insert(sale);
 
         List<Long> productsIds = new ArrayList<>();
@@ -46,6 +48,10 @@ public class SaleService {
 
     public void setSaleItemService(SaleItemService saleItemService) {
         this.saleItemService = saleItemService;
+    }
+
+    public void setCartItemService(CartItemService cartItemService) {
+        this.cartItemService = cartItemService;
     }
 
 }
