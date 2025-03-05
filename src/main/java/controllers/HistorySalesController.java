@@ -12,13 +12,13 @@ import models.entities.SaleItem;
 import services.SaleItemService;
 
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.SimpleTimeZone;
 
 public class HistorySalesController implements Initializable {
+
+    public static HistorySalesController instance;
 
     private SaleItemService saleItemService;
 
@@ -59,6 +59,8 @@ public class HistorySalesController implements Initializable {
 
     private void initializeNodes() {
 
+        instance = this;
+
         tableColumnProductName.setCellValueFactory(cellData ->
                 new SimpleStringProperty((cellData.getValue().getProduct().getName())));
 
@@ -87,10 +89,21 @@ public class HistorySalesController implements Initializable {
             setSaleItemService(new SaleItemService());
         }
 
+        updateTableView();
+
+    }
+
+    public void updateTableView() {
+        if (saleItemService == null) {
+            throw new IllegalArgumentException("Service é nulo");
+        }
+
+
         List<SaleItem> items = saleItemService.findAll();
+
         saleItemsList = FXCollections.observableArrayList(items);
         tableViewSalesItems.setItems(saleItemsList);
-
+        tableViewSalesItems.refresh();
     }
 
     public void setSaleItemService(SaleItemService saleItemService) {

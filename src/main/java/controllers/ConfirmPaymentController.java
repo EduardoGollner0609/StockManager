@@ -2,6 +2,7 @@ package controllers;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -13,6 +14,7 @@ import models.entities.Sale;
 import models.entities.SaleItem;
 import services.*;
 import utils.Alerts;
+import utils.Utils;
 
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -110,7 +112,7 @@ public class ConfirmPaymentController implements Initializable {
 
 
     @FXML
-    public void onBtnConfirmPayment() {
+    public void onBtnConfirmPayment(ActionEvent event) {
 
         if (formIsNull()) {
             Alerts.showAlert(
@@ -135,6 +137,13 @@ public class ConfirmPaymentController implements Initializable {
         }
 
         saleService.insert(sale);
+
+
+        CashierFrontListController.instance.updateTableView();
+        HistorySalesController.instance.updateTableView();
+
+        Utils.currentStage(event).close();
+
     }
 
     public void setCartItemList(ObservableList<CartItem> cartItemList) {
