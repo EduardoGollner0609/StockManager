@@ -11,16 +11,16 @@
 
 <AnchorPane prefHeight="772.0" prefWidth="1494.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HistorySalesController">
    <children>
-      <TableView layoutY="303.0" prefHeight="533.0" prefWidth="1494.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <TableView fx:id="tableViewSalesItems" layoutY="303.0" prefHeight="533.0" prefWidth="1494.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <columns>
-          <TableColumn prefWidth="280.0" text="Produto" />
-          <TableColumn prefWidth="125.0" text="Quantidade" />
-            <TableColumn prefWidth="130.0" text="Preço" />
-            <TableColumn prefWidth="184.0" text="Valor Total" />
-            <TableColumn prefWidth="207.0" text="Cliente" />
-            <TableColumn prefWidth="175.0" text="Número" />
-            <TableColumn prefWidth="153.0" text="Data" />
-            <TableColumn prefWidth="239.0" text="Observação" />
+          <TableColumn fx:id="tableColumnProductName" prefWidth="280.0" text="Produto" />
+          <TableColumn fx:id="tableColumnQuantity" prefWidth="125.0" text="Quantidade" />
+            <TableColumn fx:id="tableColumnPrice" prefWidth="130.0" text="Preço" />
+            <TableColumn fx:id="tableColumnTotalValue" prefWidth="184.0" text="Valor Total" />
+            <TableColumn fx:id="tableColumnClientName" prefWidth="207.0" text="Cliente" />
+            <TableColumn fx:id="tableColumnClientPhone" prefWidth="175.0" text="Número" />
+            <TableColumn fx:id="tableColumnSaleDate" prefWidth="153.0" text="Data" />
+            <TableColumn fx:id="tableColumnObservation" prefWidth="239.0" text="Observação" />
         </columns>
       </TableView>
       <TextField layoutX="625.0" layoutY="23.0" prefHeight="40.0" prefWidth="379.0" promptText="Buscar Vendas" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="490.0" />
