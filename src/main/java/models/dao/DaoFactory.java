@@ -2,6 +2,7 @@ package models.dao;
 
 import db.DB;
 import models.dao.impl.CartItemDaoJDBC;
+import models.dao.impl.ClientDaoJDBC;
 import models.dao.impl.ProductDaoJDBC;
 
 public class DaoFactory {
@@ -13,4 +14,9 @@ public class DaoFactory {
     public static CartItemDao createCartItem() {
         return new CartItemDaoJDBC(DB.getConnection());
     }
+
+    public static ClientDao createClient() {
+        return new ClientDaoJDBC(DB.getConnection());
+    }
+
 }
