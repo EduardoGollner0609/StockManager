@@ -22,6 +22,10 @@ public class CartItemService {
         return cartItemDao.findAll();
     }
 
+    public void deleteAllByProductsIds(List<Long> productsIds) {
+        cartItemDao.deleteAllByProductsIds(productsIds);
+    }
+
     public void removeQuantityFromCart(Long productId, Integer quantity) {
 
         CartItem cartItem = cartItemDao.findByProductId(productId);

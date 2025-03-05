@@ -11,16 +11,18 @@ public class Sale {
     private Client client;
     private LocalDateTime saleDate;
     private Double totalValue;
+    private String paymentMethod;
     private List<SaleItem> items = new ArrayList<>();
 
     public Sale() {
     }
 
-    public Sale(Long id, Client client, LocalDateTime saleDate, Double totalValue) {
+    public Sale(Long id, Client client, LocalDateTime saleDate, Double totalValue, String paymentMethod) {
         this.id = id;
         this.client = client;
         this.saleDate = saleDate;
         this.totalValue = totalValue;
+        this.paymentMethod = paymentMethod;
     }
 
     public Long getId() {
@@ -55,12 +57,24 @@ public class Sale {
         this.totalValue = totalValue;
     }
 
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
     public List<SaleItem> getItems() {
         return items;
     }
 
     public void setItems(List<SaleItem> items) {
         this.items = items;
+    }
+
+    public void addItem(SaleItem item) {
+        this.items.add(item);
     }
 
     @Override

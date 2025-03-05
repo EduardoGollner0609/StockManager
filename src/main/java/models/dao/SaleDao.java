@@ -4,6 +4,6 @@ import models.entities.Sale;
 
 public interface SaleDao {
 
-    void insert(Sale sale);
+    Sale insert(Sale sale);
 
 }

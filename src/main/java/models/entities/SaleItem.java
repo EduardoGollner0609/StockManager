@@ -8,19 +8,28 @@ public class SaleItem {
     private Sale sale;
     private Product product;
     private Integer quantity;
+    private String observation;
     private Double price;
     private Double totalValue;
 
     public SaleItem() {
     }
 
-    public SaleItem(Long id, Sale sale, Product product, Integer quantity, Double price, Double totalValue) {
+    public SaleItem(Long id, Sale sale, Product product, String observation, Integer quantity, Double price, Double totalValue) {
         this.id = id;
         this.sale = sale;
         this.product = product;
+        this.observation = observation;
         this.quantity = quantity;
         this.price = price;
         this.totalValue = totalValue;
+    }
+
+    public SaleItem(CartItem cartItem) {
+        this.product = new Product(cartItem.getProductId(), cartItem.getName(), cartItem.getDescription(), cartItem.getQuantity(), cartItem.getPrice());
+        this.quantity = cartItem.getQuantity();
+        this.price = cartItem.getPrice();
+        this.totalValue = cartItem.getTotalValue();
     }
 
     public Long getId() {
@@ -45,6 +54,14 @@ public class SaleItem {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 
     public Integer getQuantity() {

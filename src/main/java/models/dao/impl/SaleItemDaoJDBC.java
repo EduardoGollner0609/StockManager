@@ -22,17 +22,19 @@ public class SaleItemDaoJDBC implements SaleItemDao {
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
-                    "INSERT INTO tb_sale_item(sale_id, product_id, quantity, price, total_value)" +
-                            " VALUES(?, ?, ?, ?, ?)",
+                    "INSERT INTO tb_sale_item(sale_id, product_id, observation, quantity, price, total_value)" +
+                            " VALUES(?, ?, ?, ?, ?, ?)",
                     Statement.RETURN_GENERATED_KEYS);
 
             st.setLong(1, saleItem.getSale().getId());
             st.setLong(2, saleItem.getProduct().getId());
-            st.setInt(3, saleItem.getQuantity());
-            st.setDouble(4, saleItem.getPrice());
-            st.setDouble(5, saleItem.getTotalValue());
+            st.setString(3, saleItem.getObservation());
+            st.setInt(4, saleItem.getQuantity());
+            st.setDouble(5, saleItem.getPrice());
+            st.setDouble(6, saleItem.getTotalValue());
 
             int rowsAffected = st.executeUpdate();
+
             if (rowsAffected > 0) {
                 rs = st.getGeneratedKeys();
                 if (rs.next()) {

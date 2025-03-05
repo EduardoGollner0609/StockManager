@@ -10,6 +10,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CartItemDaoJDBC implements CartItemDao {
@@ -123,6 +124,30 @@ public class CartItemDaoJDBC implements CartItemDao {
                             "WHERE product_id = ?");
             st.setLong(1, id);
             st.executeUpdate();
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
+    }
+
+    @Override
+    public void deleteAllByProductsIds(List<Long> productsIds) {
+        if (productsIds == null || productsIds.isEmpty()) {
+            return;
+        }
+
+        PreparedStatement st = null;
+        try {
+            String placeholders = String.join(",", Collections.nCopies(productsIds.size(), "?"));
+            st = conn.prepareStatement("DELETE FROM tb_cart WHERE product_id IN (" + placeholders + ")");
+
+            for (int i = 0; i < productsIds.size(); i++) {
+                st.setLong(i + 1, productsIds.get(i));
+            }
+
+            st.executeUpdate();
+
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {

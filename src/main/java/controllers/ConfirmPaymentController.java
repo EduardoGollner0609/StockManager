@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.FieldRequiredNullException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -10,12 +11,12 @@ import javafx.scene.text.Text;
 import models.entities.CartItem;
 import models.entities.Client;
 import models.entities.Sale;
-import services.ClientService;
-import services.ProductService;
-import services.SaleService;
+import models.entities.SaleItem;
+import services.*;
 import utils.Alerts;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class ConfirmPaymentController implements Initializable {
@@ -92,6 +93,10 @@ public class ConfirmPaymentController implements Initializable {
                 new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getTotalValue()
                 )));
 
+        if (saleService == null) {
+            setSaleService(new SaleService(new ClientService(), new SaleItemService(), new CartItemService(new ProductService())));
+        }
+
     }
 
     public void loadTableCartList() {
@@ -107,6 +112,7 @@ public class ConfirmPaymentController implements Initializable {
 
     @FXML
     public void onBtnConfirmPayment() {
+
         if (formIsNull()) {
             Alerts.showAlert(
                     "Erro ao finalizar compra",
@@ -117,7 +123,18 @@ public class ConfirmPaymentController implements Initializable {
 
         Client client = new Client(txtClientName.getText(), txtClientPhone.getText());
         Sale sale = new Sale();
+        sale.setSaleDate(LocalDateTime.now());
         sale.setClient(client);
+        sale.setTotalValue(calculateTotalValue());
+
+        sale.setPaymentMethod(getPaymentMethod());
+
+        for (CartItem cartItem : cartItemList) {
+            SaleItem item = new SaleItem(cartItem);
+            item.setSale(sale);
+            sale.addItem(item);
+        }
+
         saleService.insert(sale);
 
 
@@ -146,6 +163,19 @@ public class ConfirmPaymentController implements Initializable {
 
     public void setSaleService(SaleService saleService) {
         this.saleService = saleService;
+    }
+
+    private String getPaymentMethod() {
+        if (pixOption.isSelected()) {
+            return pixOption.getText();
+        }
+        if (cardOption.isSelected()) {
+            return pixOption.getText();
+        }
+        if (moneyOption.isSelected()) {
+            return pixOption.getText();
+        }
+        throw new FieldRequiredNullException();
     }
 
 }
