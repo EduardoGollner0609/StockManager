@@ -22,7 +22,7 @@ public class StockFormController {
 
     private Product product;
 
-    private ProductService service;
+    private ProductService productService;
 
     private Long productId;
 
@@ -54,7 +54,7 @@ public class StockFormController {
 
         if (product != null) {
             try {
-                service.saveOrUpdate(product);
+                productService.saveOrUpdate(product);
 
                 Alerts.showAlert("Sucesso", null, "Salvo com sucesso", Alert.AlertType.INFORMATION);
 
@@ -151,8 +151,8 @@ public class StockFormController {
         this.product = product;
     }
 
-    public void setProductService(ProductService service) {
-        this.service = service;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
 }

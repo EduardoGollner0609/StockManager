@@ -22,11 +22,12 @@ public class ClientDaoJDBC implements ClientDao {
         try {
 
             st = conn.prepareStatement(
-                    "INSERT INTO tb_client(name, phone) " +
-                            "VALUES (?, ?)", Statement.RETURN_GENERATED_KEYS);
+                    "INSERT INTO tb_client(name, cpf, phone) " +
+                            "VALUES (?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 
             st.setString(1, client.getName());
-            st.setString(2, client.getPhone());
+            st.setString(2, client.getCpf());
+            st.setString(3, client.getPhone());
 
             int rowsAffected = st.executeUpdate();
 
@@ -47,15 +48,15 @@ public class ClientDaoJDBC implements ClientDao {
     }
 
     @Override
-    public Client findByName(String name) {
+    public Client findByCpf(String cpf) {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
             st = conn.prepareStatement(
                     "SELECT * " +
                             "FROM tb_client " +
-                            "WHERE name = ?");
-            st.setString(1, name);
+                            "WHERE cpf = ?");
+            st.setString(1, cpf);
             rs = st.executeQuery();
             if (rs.next()) {
                 return instantiateClient(rs);
@@ -73,6 +74,7 @@ public class ClientDaoJDBC implements ClientDao {
         return new Client(
                 rs.getLong("id"),
                 rs.getString("name"),
+                rs.getString("cpf"),
                 rs.getString("phone")
         );
     }

@@ -36,15 +36,21 @@
       </TableView>
       <Label layoutX="44.0" layoutY="116.0" text="Número de telefone" />
       <TextField fx:id="txtClientPhone" layoutX="44.0" layoutY="137.0" />
-      <Label layoutX="44.0" layoutY="186.0" text="Forma de pagamento" />
-      <RadioButton fx:id="moneyOption" layoutX="44.0" layoutY="215.0" mnemonicParsing="false" text="Dinheiro" />
-      <RadioButton fx:id="cardOption" layoutX="130.0" layoutY="215.0" mnemonicParsing="false" prefWidth="66.0" text="Cartão" />
-      <RadioButton fx:id="pixOption" layoutX="205.0" layoutY="215.0" mnemonicParsing="false" text="Pix" />
-      <Label layoutX="340.0" layoutY="55.0" text="Alguma observação">
+      <Label layoutX="305.0" layoutY="55.0" text="Forma de pagamento" />
+      <RadioButton fx:id="moneyOption" layoutX="305.0" layoutY="86.0" mnemonicParsing="false" text="Dinheiro" />
+      <RadioButton fx:id="cardOption" layoutX="396.0" layoutY="86.0" mnemonicParsing="false" prefWidth="66.0" text="Cartão" />
+      <RadioButton fx:id="pixOption" layoutX="472.0" layoutY="86.0" mnemonicParsing="false" text="Pix" />
+      <Label layoutX="570.0" layoutY="55.0" text="Alguma observação">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <TextArea fx:id="txtObservation" layoutX="340.0" layoutY="82.0" prefHeight="160.0" prefWidth="575.0" />
+      <TextArea fx:id="txtObservation" layoutX="570.0" layoutY="82.0" prefHeight="160.0" prefWidth="438.0" />
+      <Label layoutX="44.0" layoutY="179.0" text="CPF">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <TextField fx:id="txtClientCpf" layoutX="44.0" layoutY="200.0" />
    </children>
 </AnchorPane>

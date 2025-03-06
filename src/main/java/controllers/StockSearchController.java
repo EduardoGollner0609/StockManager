@@ -28,7 +28,7 @@ public class StockSearchController implements Initializable {
 
     public static StockSearchController instance;
 
-    private ProductService service;
+    private ProductService productService;
 
     @FXML
     private TableView<Product> tableViewStock;
@@ -74,19 +74,20 @@ public class StockSearchController implements Initializable {
                 new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getPrice()
                 )));
 
-        setProductService(new ProductService());
-
+        if (productService == null) {
+            setProductService(new ProductService());
+        }
         updateTableView();
 
         setupSearchListener();
     }
 
     public void updateTableView() {
-        if (service == null) {
+        if (productService == null) {
             throw new IllegalArgumentException("Service é nulo");
         }
 
-        List<Product> list = service.findAll();
+        List<Product> list = productService.findAll();
         productList = FXCollections.observableArrayList(list);
         tableViewStock.setItems(productList);
 
@@ -142,7 +143,7 @@ public class StockSearchController implements Initializable {
 
             ConfirmQuantityController controller = loader.getController();
             controller.setProductAndTxtNameProduct(obj);
-            controller.setCartItemService(new CartItemService(service));
+            controller.setCartItemService(new CartItemService(productService));
 
             Stage stage = new Stage();
 
@@ -159,6 +160,6 @@ public class StockSearchController implements Initializable {
     }
 
     public void setProductService(ProductService productService) {
-        this.service = productService;
+        this.productService = productService;
     }
 }

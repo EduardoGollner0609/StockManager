@@ -30,7 +30,7 @@ public class StockListController implements Initializable {
 
     public static StockListController instance;
 
-    private ProductService service;
+    private ProductService productService;
 
     private ObservableList<Product> productList;
 
@@ -85,7 +85,9 @@ public class StockListController implements Initializable {
                 new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getPrice()
                 )));
 
-        setProductService(new ProductService());
+        if (productService == null) {
+            setProductService(new ProductService());
+        }
 
         updateTableView();
 
@@ -94,11 +96,12 @@ public class StockListController implements Initializable {
     }
 
     public void updateTableView() {
-        if (service == null) {
+
+        if (productService == null) {
             throw new IllegalArgumentException("Service é nulo");
         }
 
-        List<Product> list = service.findAll();
+        List<Product> list = productService.findAll();
 
         productList = FXCollections.observableArrayList(list);
         tableViewStock.setItems(productList);
@@ -156,7 +159,7 @@ public class StockListController implements Initializable {
             Pane pane = loader.load();
 
             StockFormController controller = loader.getController();
-            controller.setProductService(service);
+            controller.setProductService(productService);
             Stage dialogStage = new Stage();
 
             if (obj != null) {
@@ -206,11 +209,11 @@ public class StockListController implements Initializable {
         Optional<ButtonType> result = Alerts.showConfirmation("Deletar produto", "Tem certeza que desejo remover o produto " + obj.getName() + "?");
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            if (service == null) {
+            if (productService == null) {
                 throw new IllegalStateException("Service was null");
             }
             try {
-                service.deleteById(obj.getId());
+                productService.deleteById(obj.getId());
                 updateTableView();
             } catch (DbIntegrityException e) {
                 Alerts.showAlert("Erro ao remover produto", null, "Esse produto está em seu carrinho de compras, por favor, descarte ele de lá", Alert.AlertType.ERROR);
@@ -234,8 +237,8 @@ public class StockListController implements Initializable {
         tableViewStock.setItems(filteredList);
     }
 
-    public void setProductService(ProductService service) {
-        this.service = service;
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
 }

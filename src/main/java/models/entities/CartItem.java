@@ -8,7 +8,6 @@ public class CartItem extends Product {
     private Double totalValue;
 
     public CartItem() {
-
     }
 
     public CartItem(Integer quantity, Long productId, Double totalValue) {

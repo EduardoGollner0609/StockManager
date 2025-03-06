@@ -37,6 +37,9 @@ public class ConfirmPaymentController implements Initializable {
     private TextField txtClientPhone;
 
     @FXML
+    private TextField txtClientCpf;
+
+    @FXML
     private TextArea txtObservation;
 
     @FXML
@@ -108,42 +111,57 @@ public class ConfirmPaymentController implements Initializable {
     }
 
     @FXML
-    public void onBtnCancelPayment() {
-        System.out.print("Cancelar compra");
+    public void onBtnCancelPayment(ActionEvent event) {
+        Utils.currentStage(event).close();
     }
 
 
     @FXML
     public void onBtnConfirmPayment(ActionEvent event) {
 
-        String paymentMethod = getPaymentMethod();
-
         Client client = instantiateClient();
 
-        if (client != null && paymentMethod != null) {
-            Sale sale = instantiateSale(client, paymentMethod);
-            fillingSaleItems(sale);
-            saleService.insert(sale);
-
-            CashierFrontListController.instance.updateTableView();
-
-            HistorySalesController.instance.updateTableView();
-
-            Utils.currentStage(event).close();
+        if (client == null) {
+            Alerts.showAlert(
+                    "Erro ao finalizar compra",
+                    null, "Os campos de nome e número não podem estar vazios.",
+                    Alert.AlertType.ERROR);
+            return;
         }
+
+        String paymentMethod = getPaymentMethod();
+
+        if (paymentMethod == null) {
+            Alerts.showAlert(
+                    "Erro no método de pagamento",
+                    null, "Favor informar um e apenas um meio de pagamento",
+                    Alert.AlertType.ERROR);
+            return;
+        }
+
+        Sale sale = instantiateSale(client, paymentMethod);
+        fillingSaleItems(sale);
+        saleService.insert(sale);
+
+        CashierFrontListController.instance.updateTableView();
+
+        HistorySalesController.instance.updateTableView();
+
+        Utils.currentStage(event).close();
+
     }
 
     private Client instantiateClient() {
-        boolean clientFormIsValid = !(txtClientName.getText() == null || txtClientName.getText().isEmpty() || txtClientPhone == null || txtClientPhone.getText().isEmpty());
+        boolean clientFormIsValid = !(txtClientName.getText() == null ||
+                txtClientName.getText().trim().isEmpty() ||
+                txtClientCpf.getText() == null ||
+                txtClientCpf.getText().trim().isEmpty() ||
+                txtClientPhone == null || txtClientPhone.getText().trim().isEmpty());
 
         if (clientFormIsValid) {
-            return new Client(txtClientName.getText(), txtClientPhone.getText());
+            return new Client(txtClientName.getText(), txtClientCpf.getText(), txtClientPhone.getText());
         }
 
-        Alerts.showAlert(
-                "Erro ao finalizar compra",
-                null, "Favor informar o nome, número do cliente e a forma de pagamento.",
-                Alert.AlertType.ERROR);
         return null;
 
     }
@@ -193,12 +211,18 @@ public class ConfirmPaymentController implements Initializable {
     }
 
     private Sale instantiateSale(Client client, String paymentMethod) {
+        String observation = txtObservation.getText().trim();
+
+        if (observation.isEmpty()) {
+            observation = "Sem observação";
+        }
+
         return new Sale(
                 client,
                 LocalDateTime.now(),
                 calculateTotalValue(),
                 paymentMethod,
-                txtObservation.getText()
+                observation
         );
     }
 

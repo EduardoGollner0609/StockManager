@@ -18,7 +18,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import models.entities.CartItem;
-import models.entities.Product;
 import services.CartItemService;
 import services.ProductService;
 import utils.Alerts;
@@ -31,10 +30,9 @@ import java.util.ResourceBundle;
 
 public class CashierFrontListController implements Initializable {
 
-
     public static CashierFrontListController instance;
 
-    private CartItemService service;
+    private CartItemService cartItemService;
 
     private ObservableList<CartItem> cartItemList;
 
@@ -100,7 +98,9 @@ public class CashierFrontListController implements Initializable {
                 new SimpleStringProperty(String.format("R$ %.2f", data.getValue().getTotalValue()
                 )));
 
-        setCartItemService(new CartItemService(new ProductService()));
+        if (cartItemService == null) {
+            setCartItemService(new CartItemService(new ProductService()));
+        }
 
         initRemoveButtons();
 
@@ -109,11 +109,11 @@ public class CashierFrontListController implements Initializable {
 
     public void updateTableView() {
 
-        if (service == null) {
+        if (cartItemService == null) {
             throw new IllegalArgumentException("Service é nulo");
         }
 
-        List<CartItem> list = service.findAll();
+        List<CartItem> list = cartItemService.findAll();
 
 
         cartItemList = FXCollections.observableArrayList(list);
@@ -131,6 +131,14 @@ public class CashierFrontListController implements Initializable {
 
     @FXML
     public void onBtnConfirmPayment(ActionEvent event) {
+        if (cartItemList.isEmpty()) {
+            Alerts.showAlert(
+                    "Erro ao finalizar compra",
+                    null,
+                    "O carrinho está vazio, é necessário que tenha ao menos um item",
+                    Alert.AlertType.ERROR);
+            return;
+        }
         Stage parentStage = Utils.currentStage(event);
         createDialogForm(null, "Confirmar Compra", "/org/example/stockmanager/gui/confirm-payment.fxml", parentStage);
     }
@@ -175,7 +183,7 @@ public class CashierFrontListController implements Initializable {
             Long productId = Long.parseLong(txtProductId.getText());
 
 
-            service.removeQuantityFromCart(productId, quantity);
+            cartItemService.removeQuantityFromCart(productId, quantity);
 
 
             StockListController.instance.updateTableView();
@@ -234,8 +242,8 @@ public class CashierFrontListController implements Initializable {
                 txtQuantity.getText() == null || txtQuantity.getText().isEmpty());
     }
 
-    public void setCartItemService(CartItemService service) {
-        this.service = service;
+    public void setCartItemService(CartItemService cartItemService) {
+        this.cartItemService = cartItemService;
     }
 
 

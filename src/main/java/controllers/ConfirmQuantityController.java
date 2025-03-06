@@ -48,7 +48,6 @@ public class ConfirmQuantityController {
             removeProductFromCart(quantity, event);
         }
 
-
     }
 
     private void removeProductFromCart(Integer quantity, ActionEvent event) {

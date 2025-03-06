@@ -66,7 +66,7 @@ public class SaleItemDaoJDBC implements SaleItemDao {
                     "SELECT si.id, si.quantity, si.price, si.total_value, si.product_id, si.sale_id, " +
                             "pt.name AS product_name, pt.description, " +
                             "sl.client_id, sl.sale_date, sl.total_value AS sale_total_value, sl.payment_method, sl.observation, " +
-                            "cl.name AS client_name, cl.phone " +
+                            "cl.name AS client_name, cl.phone AS client_phone, cl.cpf AS client_cpf " +
                             "FROM tb_sale_item si " +
                             "INNER JOIN tb_product pt ON pt.id = si.product_id " +
                             "INNER JOIN tb_sale sl ON sl.id = si.sale_id " +
@@ -93,7 +93,8 @@ public class SaleItemDaoJDBC implements SaleItemDao {
         Client client = new Client(
                 rs.getLong("client_id"),
                 rs.getString("client_name"),
-                rs.getString("phone")
+                rs.getString("client_cpf"),
+                rs.getString("client_phone")
         );
 
         Sale sale = new Sale(

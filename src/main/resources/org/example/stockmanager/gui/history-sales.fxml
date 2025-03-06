@@ -13,12 +13,13 @@
    <children>
       <TableView fx:id="tableViewSalesItems" layoutY="303.0" prefHeight="533.0" prefWidth="1494.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="238.39999999999998">
         <columns>
-          <TableColumn fx:id="tableColumnProductName" prefWidth="280.0" text="Produto" />
-          <TableColumn fx:id="tableColumnQuantity" prefWidth="125.0" text="Quantidade" />
-            <TableColumn fx:id="tableColumnPrice" prefWidth="130.0" text="Preço" />
-            <TableColumn fx:id="tableColumnTotalValue" prefWidth="184.0" text="Valor Total" />
-            <TableColumn fx:id="tableColumnClientName" prefWidth="207.0" text="Cliente" />
-            <TableColumn fx:id="tableColumnClientPhone" prefWidth="175.0" text="Número" />
+          <TableColumn fx:id="tableColumnClientName" prefWidth="174.3999908566475" text="Cliente" />
+            <TableColumn fx:id="tableColumnClientCpf" prefWidth="116.80003356933594" text="CPF" />
+          <TableColumn fx:id="tableColumnClientPhone" prefWidth="153.5999755859375" text="Número" />
+            <TableColumn fx:id="tableColumnProductName" prefWidth="204.0" text="Produto" />
+            <TableColumn fx:id="tableColumnQuantity" prefWidth="141.60003662109375" text="Quantidade" />
+            <TableColumn fx:id="tableColumnPrice" prefWidth="174.39996337890625" text="Preço" />
+            <TableColumn fx:id="tableColumnTotalValue" prefWidth="190.4000244140625" text="Valor Total" />
             <TableColumn fx:id="tableColumnSaleDate" prefWidth="153.0" text="Data" />
             <TableColumn fx:id="tableColumnObservation" prefWidth="239.5999755859375" text="Observação" />
         </columns>
@@ -26,7 +27,7 @@
               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
           </columnResizePolicy>
       </TableView>
-      <TextField fx:id="txtSearchClientName" layoutX="625.0" layoutY="23.0" prefHeight="40.0" prefWidth="379.0" promptText="Buscar Vendas" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="490.0" />
+      <TextField fx:id="txtSearchClientCpf" layoutX="625.0" layoutY="23.0" prefHeight="40.0" prefWidth="379.0" promptText="Buscar Vendas" AnchorPane.leftAnchor="625.0" AnchorPane.rightAnchor="490.0" />
       <ImageView fitHeight="40.0" fitWidth="37.0" layoutX="577.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../imgs/search-icon.png" />

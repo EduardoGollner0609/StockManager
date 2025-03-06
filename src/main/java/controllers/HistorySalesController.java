@@ -9,7 +9,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import models.entities.Product;
 import models.entities.SaleItem;
 import services.SaleItemService;
 
@@ -48,13 +47,16 @@ public class HistorySalesController implements Initializable {
     private TableColumn<SaleItem, String> tableColumnClientPhone;
 
     @FXML
+    private TableColumn<SaleItem, String> tableColumnClientCpf;
+
+    @FXML
     private TableColumn<SaleItem, String> tableColumnSaleDate;
 
     @FXML
     private TableColumn<SaleItem, String> tableColumnObservation;
 
     @FXML
-    private TextField txtSearchClientName;
+    private TextField txtSearchClientCpf;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -70,6 +72,9 @@ public class HistorySalesController implements Initializable {
 
         tableColumnQuantity.setCellValueFactory(cellData ->
                 new SimpleIntegerProperty(cellData.getValue().getQuantity()).asObject());
+
+        tableColumnClientCpf.setCellValueFactory(cellData ->
+                new SimpleStringProperty(cellData.getValue().getSale().getClient().getCpf()));
 
         tableColumnPrice.setCellValueFactory(cellData ->
                 new SimpleStringProperty(String.format("R$ %.2f", cellData.getValue().getPrice())));
@@ -101,7 +106,7 @@ public class HistorySalesController implements Initializable {
     }
 
     private void setupSearchListener() {
-        txtSearchClientName.textProperty().addListener((observable, oldValue, newValue) -> {
+        txtSearchClientCpf.textProperty().addListener((observable, oldValue, newValue) -> {
             filterProductList(newValue);
         });
     }
@@ -109,7 +114,7 @@ public class HistorySalesController implements Initializable {
     private void filterProductList(String searchQuery) {
         ObservableList<SaleItem> filteredList = FXCollections.observableArrayList();
         for (SaleItem saleItem : saleItemsList) {
-            if (saleItem.getSale().getClient().getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+            if (saleItem.getSale().getClient().getCpf().toLowerCase().contains(searchQuery.toLowerCase())) {
                 filteredList.add(saleItem);
             }
         }

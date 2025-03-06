@@ -10,7 +10,7 @@ public class ClientService {
 
     public void insert(Client client) {
 
-        Client obj = clientDao.findByName(client.getName());
+        Client obj = clientDao.findByCpf(client.getName());
 
         if (obj == null) {
             clientDao.insert(client);
