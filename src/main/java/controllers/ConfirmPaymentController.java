@@ -1,5 +1,6 @@
 package controllers;
 
+import exceptions.ResourceNotFoundException;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -115,7 +116,6 @@ public class ConfirmPaymentController implements Initializable {
         Utils.currentStage(event).close();
     }
 
-
     @FXML
     public void onBtnConfirmPayment(ActionEvent event) {
 
@@ -124,7 +124,7 @@ public class ConfirmPaymentController implements Initializable {
         if (client == null) {
             Alerts.showAlert(
                     "Erro ao finalizar compra",
-                    null, "Os campos de nome e número não podem estar vazios.",
+                    null, "O campo de cpf não pode estar vazio.",
                     Alert.AlertType.ERROR);
             return;
         }
@@ -141,22 +141,26 @@ public class ConfirmPaymentController implements Initializable {
 
         Sale sale = instantiateSale(client, paymentMethod);
         fillingSaleItems(sale);
-        saleService.insert(sale);
+
+        try {
+            saleService.insert(sale);
 
         CashierFrontListController.instance.updateTableView();
 
         HistorySalesController.instance.updateTableView();
 
         Utils.currentStage(event).close();
+    }
+     catch(ResourceNotFoundException e) {
+        Alerts.showAlert("Erro ao cadastrar cliente", null, "Cliente não encontrado, por favor informe o nome e telefone", Alert.AlertType.ERROR);
 
+    }
     }
 
     private Client instantiateClient() {
-        boolean clientFormIsValid = !(txtClientName.getText() == null ||
-                txtClientName.getText().trim().isEmpty() ||
+        boolean clientFormIsValid = !(
                 txtClientCpf.getText() == null ||
-                txtClientCpf.getText().trim().isEmpty() ||
-                txtClientPhone == null || txtClientPhone.getText().trim().isEmpty());
+                txtClientCpf.getText().trim().isEmpty());
 
         if (clientFormIsValid) {
             return new Client(txtClientName.getText(), txtClientCpf.getText(), txtClientPhone.getText());

@@ -94,7 +94,7 @@ public class StockFormController {
             Alerts.showAlert(ERROR_FORM_TITLE, null, "Todos os campos devem estar preenchidos.", Alert.AlertType.ERROR);
             return null;
         } catch (CaracterInvalidException e) {
-            Alerts.showAlert(ERROR_FORM_TITLE, null, "Os Campos de quantidade e preço não podem possuir letras, caracteres inválidos ou números menores que 0.", Alert.AlertType.ERROR);
+            Alerts.showAlert(ERROR_FORM_TITLE, null, "Os Campos de quantidade e preço não podem possuir letras, caracteres inválidos ou números menores que zeros. No campo de preço colocar virgula/ponto somente nas casas decimais, exemplo: 1999,99.", Alert.AlertType.ERROR);
             return null;
         }
     }

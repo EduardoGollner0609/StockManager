@@ -27,7 +27,7 @@
               <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
           </columnResizePolicy>
       </TableView>
-      <TextField fx:id="txtSearchProductName" layoutX="526.0" layoutY="29.0" maxHeight="250.0" prefHeight="30.0" prefWidth="98.0" promptText="Digite o CPF do cliente" AnchorPane.leftAnchor="526.0" AnchorPane.rightAnchor="354.0" AnchorPane.topAnchor="30.0" />
+      <TextField fx:id="txtSearchProductName" layoutX="526.0" layoutY="29.0" maxHeight="250.0" prefHeight="30.0" prefWidth="98.0" promptText="Digite o nome do produto" AnchorPane.leftAnchor="526.0" AnchorPane.rightAnchor="354.0" AnchorPane.topAnchor="30.0" />
       <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="496.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="33.0">
          <image>
             <Image url="@../imgs/search-icon.png" />
