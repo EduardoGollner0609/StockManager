@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="663.0" prefWidth="1149.0" styleClass="anchor-pane" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.HomeController">
+   <children>
+      <Text fill="WHITE" layoutX="14.0" layoutY="39.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt" text="Seja muito bem vindo ao StockManager">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Text>
+      <VBox layoutY="117.0" prefHeight="264.0" prefWidth="1018.0" spacing="10" AnchorPane.leftAnchor="30.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="O Stock Manager é a solução definitiva para lojistas e empreendedores que querem agilidade e precisão no gerenciamento de estoque e vendas." wrappingWidth="1017.9921875" />
+            <Text fill="WHITE" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="🔹 Controle total do estoque – saiba exatamente o que entra e sai, evitando perdas e falta de produtos." wrappingWidth="766.9921875" />
+            <Text fill="WHITE" layoutX="10.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="🔹 Gestão de vendas eficiente – registre transações rapidamente e acompanhe o faturamento em tempo real." wrappingWidth="766.9921875" />
+            <Text fill="WHITE" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="🔹 Interface intuitiva – fácil de usar, mesmo para quem não tem experiência com tecnologia." wrappingWidth="766.9921875" />
+            <Text fill="WHITE" layoutX="10.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="🔹 Relatórios inteligentes – tome decisões estratégicas com base em dados organizados e detalhados." wrappingWidth="766.9921875" />
+            <Text fill="WHITE" layoutX="10.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="🔹 Pare de perder tempo com anotações manuais! O Stock Manager te ajuda a ter mais controle, organização e lucro no seu negócio." wrappingWidth="766.9921875" />
+         </children>
+      </VBox>
+      <Text fill="WHITE" layoutX="14.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="Stock Manager - Controle de Estoque e Vendas Simplificado! 🚀📦">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <VBox layoutX="550.0" layoutY="377.0" prefHeight="286.0" prefWidth="569.0" spacing="20" AnchorPane.bottomAnchor="10.0" AnchorPane.rightAnchor="30.0">
+         <children>
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="Frente de Caixa: Registre vendas de forma ágil e acompanhe o estoque em tempo real. Com uma interface intuitiva, finalize transações com praticidade e tenha total controle sobre os produtos vendidos." wrappingWidth="598.6328125" />
+            <Text fill="WHITE" layoutX="10.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="Controle de Estoque: Adicione, edite e remova produtos do estoque de forma simples e eficiente. Evite falta de mercadorias ou excesso de itens, garantindo um gerenciamento preciso e otimizado." wrappingWidth="599.6328125" />
+            <Text fill="WHITE" layoutX="10.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt-min" text="Histórico de Vendas: Consulte vendas anteriores com facilidade, filtre por data ou produto e tenha um histórico completo das transações. Tome decisões estratégicas baseadas em dados reais e melhore a gestão do seu negócio." wrappingWidth="599.6328125" />
+         </children>
+      </VBox>
+      <Text fx:id="txtDay" fill="WHITE" layoutX="984.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="txt" AnchorPane.rightAnchor="50.0" />
+   </children>
+</AnchorPane>

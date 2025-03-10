@@ -39,6 +39,6 @@ CREATE TABLE tb_sale_item (
     price DOUBLE,
     total_value DOUBLE,
     FOREIGN KEY (sale_id) REFERENCES tb_sale(id),
-    FOREIGN KEY (product_id) REFERENCES tb_product(id)
+    FOREIGN KEY (product_id) REFERENCES tb_product(id) ON DELETE CASCADE
 );
 

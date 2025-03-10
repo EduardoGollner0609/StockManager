@@ -2,6 +2,17 @@
     -fx-background-color: #1E1E1E;
 }
 
+.txt {
+-fx-text-fill: #FFF;
+-fx-font-size: 22px;
+-fx-font-weight: bold;
+}
+
+.txt-min {
+-fx-text-fill: #FFF;
+-fx-font-size: 18px;
+}
+
 .tab .tab-label {
     -fx-text-fill: #FFF;
     -fx-font-size: 14px;
@@ -148,13 +159,6 @@
 .anchor-pane {
 -fx-background-color: #1E1E1E;
 }
-
-.txt {
--fx-text-fill: #FFF;
--fx-font-size: 22px;
--fx-font-weight: bold;
-}
-
 
 .label {
 -fx-text-fill: #FFF;

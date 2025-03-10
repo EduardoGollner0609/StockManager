@@ -56,7 +56,7 @@ public class HistorySalesController implements Initializable {
     private TableColumn<SaleItem, String> tableColumnObservation;
 
     @FXML
-    private TextField txtSearchClientCpf;
+    private TextField txtSearchProductName;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -106,7 +106,7 @@ public class HistorySalesController implements Initializable {
     }
 
     private void setupSearchListener() {
-        txtSearchClientCpf.textProperty().addListener((observable, oldValue, newValue) -> {
+        txtSearchProductName.textProperty().addListener((observable, oldValue, newValue) -> {
             filterProductList(newValue);
         });
     }
@@ -114,7 +114,7 @@ public class HistorySalesController implements Initializable {
     private void filterProductList(String searchQuery) {
         ObservableList<SaleItem> filteredList = FXCollections.observableArrayList();
         for (SaleItem saleItem : saleItemsList) {
-            if (saleItem.getSale().getClient().getCpf().toLowerCase().contains(searchQuery.toLowerCase())) {
+            if (saleItem.getProduct().getName().toLowerCase().contains(searchQuery.toLowerCase())) {
                 filteredList.add(saleItem);
             }
         }

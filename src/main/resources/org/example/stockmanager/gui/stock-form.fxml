@@ -11,34 +11,35 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="439.0" prefWidth="600.0" styleClass="anchor-pane" stylesheets="@../css/stock-form.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.StockFormController">
    <children>
       <Text fill="WHITE" layoutX="224.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text-stock-create" text="Criar Produto" />
-      <Label layoutX="58.0" layoutY="75.0" text="Nome" textFill="WHITE">
+      <Label layoutX="58.0" layoutY="75.0" text="Nome" textFill="WHITE" AnchorPane.leftAnchor="58.0">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <TextField fx:id="txtName" layoutX="58.0" layoutY="100.0" promptText="Nome" />
-      <TextField fx:id="txtQuantity" layoutX="57.0" layoutY="168.0" promptText="Quantidade" />
-      <Label layoutX="58.0" layoutY="140.0" text="Quantidade" textFill="WHITE">
+      <TextField fx:id="txtName" layoutX="58.0" layoutY="100.0" prefHeight="37.0" prefWidth="476.0" promptText="Nome" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="66.0" />
+      <TextField fx:id="txtQuantity" layoutX="57.0" layoutY="174.0" prefHeight="37.0" prefWidth="217.0" promptText="Quantidade" AnchorPane.bottomAnchor="228.0" AnchorPane.leftAnchor="58.0" />
+      <Label layoutX="61.0" layoutY="154.0" text="Quantidade" textFill="WHITE" AnchorPane.leftAnchor="58.0">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <TextArea fx:id="txtDescription" layoutX="301.0" layoutY="102.0" prefHeight="175.0" prefWidth="262.0" promptText="Descrição" styleClass="text-area" />
-      <Label layoutX="301.0" layoutY="75.0" text="Descrição" textFill="WHITE">
+      <TextArea fx:id="txtDescription" layoutX="57.0" layoutY="260.0" prefHeight="77.0" prefWidth="487.0" promptText="Descrição" styleClass="text-area" AnchorPane.leftAnchor="58.0" AnchorPane.rightAnchor="66.0" />
+      <Label layoutX="58.0" layoutY="227.0" text="Descrição" textFill="WHITE" AnchorPane.leftAnchor="58.0">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
-      <Button fx:id="btnCreateConfirm" layoutX="215.0" layoutY="319.0" mnemonicParsing="false" onAction="#onBtnCreateConfirm" prefHeight="43.0" prefWidth="171.0" styleClass="button-create" text="Salvar Produto">
+      <Button fx:id="btnCreateConfirm" layoutX="215.0" layoutY="350.0" mnemonicParsing="false" onAction="#onBtnCreateConfirm" prefHeight="43.0" prefWidth="171.0" styleClass="button-create" text="Salvar Produto">
          <font>
             <Font size="18.0" />
          </font>
       </Button>
-      <TextField fx:id="txtPrice" layoutX="57.0" layoutY="233.0" promptText="Preço" />
-      <Label layoutX="57.0" layoutY="206.0" text="Preço" textFill="WHITE">
+      <TextField fx:id="txtPrice" layoutX="328.0" layoutY="174.0" prefHeight="37.0" prefWidth="210.0" promptText="Preço" AnchorPane.bottomAnchor="228.0" AnchorPane.rightAnchor="66.0" />
+      <Label layoutX="328.0" layoutY="154.0" text="Preço" textFill="WHITE">
          <font>
             <Font size="29.0" />
          </font>
       </Label>
+      <Label layoutX="300.0" layoutY="179.0" text="R$" textFill="WHITE" />
    </children>
 </AnchorPane>

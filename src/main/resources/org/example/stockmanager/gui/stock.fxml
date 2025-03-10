@@ -60,8 +60,8 @@
             </Button>
             </children>
         </VBox>
-      <TextField fx:id="txtSearchProduct" layoutX="436.0" layoutY="23.0" maxWidth="300.0" prefHeight="39.0" prefWidth="300.0" promptText="Buscar Produto" AnchorPane.leftAnchor="436.0" AnchorPane.rightAnchor="402.0" />
-      <ImageView fitHeight="23.0" fitWidth="23.0" layoutX="404.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
+      <TextField fx:id="txtSearchProduct" layoutX="526.0" layoutY="31.2" maxWidth="269.0" minWidth="183.0" prefHeight="30.0" prefWidth="269.0" promptText="Buscar Produto" AnchorPane.leftAnchor="526.0" AnchorPane.rightAnchor="354.0" AnchorPane.topAnchor="31.0" />
+      <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="496.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" AnchorPane.topAnchor="33.0">
          <image>
             <Image url="@../imgs/search-icon.png" />
          </image>
